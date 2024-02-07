@@ -1,0 +1,10 @@
+.input-group {
+    width: 50%;
+    margin-left: 0 auto;
+}
+.input-group .form-control {
+    height: 50px;
+    padding: 5px;
+    font-size: 15px;
+    
+}
