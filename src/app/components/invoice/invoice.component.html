@@ -1,1 +1,141 @@
-<p>invoice works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+      <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+     <!-- Container for text boxes -->
+ <div class="container">
+    <div class="row">
+    <!-- Left text boxes -->
+    <div class="col-md-6">
+        <div class="mb-3">
+        <label for="textBox1" class="form-label">Invoice ID</label>
+        <input type="text" class="form-control" id="textBox1" placeholder="Enter the Invoice ID.">
+        </div>
+        <div class="mb-3">
+        <label for="textBox2" class="form-label">Cashier Name</label>
+        <input type="text" class="form-control" id="textBox2" placeholder="Enter Cashier Name.">
+        </div>
+        <div class="mb-3">
+        <label for="textBox3" class="form-label">Branch</label>
+        <input type="text" class="form-control" id="textBox3" placeholder="Enter Branch Name.">
+        </div>
+    </div>
+
+    <!-- Right text boxes -->
+    <div class="col-md-6">
+
+        <!-- Date Text Box-->
+        <div class="mb-3">
+            <label for="textBox4" class="form-label">Date</label>
+            <input type="date" class="form-control" id="textBox4">
+        </div>
+        
+        <!-- Time Text Box -->
+        <div class="mb-3">
+            <label for="textBox5" class="form-label">Time</label>
+            <input type="time" class="form-control" id="textBox5">
+        </div>
+        
+        <!-- Center Selector Box -->
+        <div class="mb-3">
+            <label for="textBox6" class="form-label">Center</label>
+            <select class="form-select" id="textBox6">
+            <option selected>Select center</option>
+            <option value="center1">GMP</option>
+            <option value="center2">Hleden Center</option>
+            <option value="center3">Junction Square</option>
+            <option value="center4">Junction City</option>
+            </select>
+
+        </div>
+    </div>
+    </div>
+</div>
+
+<br>
+
+ <!-- Stock Table -->
+ <div class="container">
+    <h2>Stock List</h2>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Stock ID</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Amount</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <!-- Stocks Dynamic UI -->
+        <tr *ngFor="let stock of stocks">
+            <!-- ID -->
+            <td>{{ stock.id }}</td>
+          
+            <!-- Name -->
+            <td>{{ stock.name }}</td>
+          
+            <!-- Quantity -->
+            <td>
+                <div style="display: flex; align-items: center;">
+                    <button class="btn btn-outline-secondary btn-sm" type="button" (click)="decreaseQuantity(stock)">-</button>
+                    <input type="number" [(ngModel)]="stock.quantity">
+                    <button class="btn btn-outline-secondary btn-sm" type="button" (click)="increaseQuantity(stock)">+</button>
+                </div>
+            </td>
+                            
+            <!-- Price -->
+            <td>{{ stock.price }}</td>
+          
+            <!-- Amount -->
+            <td>{{ stock.quantity * stock.price }}</td>
+          
+            <!-- Action Buttons -->
+            <td>
+                <button class="btn btn-primary me-2">Add</button>
+                <button class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+
+      </tbody>
+
+        <!-- Total Prices -->
+      <tfoot>
+
+        <tr>
+            <th colspan="4" class="text-end">Total:</th>
+            <td><strong><span id="totalAmount">{{totalAmount | currency}}</span></strong></td>
+            <td></td>
+        </tr>
+        </tfoot>
+
+    </table>
+  </div>
+ <!-- Stock Table -->
+
+ <!-- Buttons -->
+
+<div class="buttons container" style="display: flex; justify-content:right;">
+
+<button type="button" class="btn btn-primary me-2">Add</button>
+<button type="button" class="btn btn-secondary me-2">Update</button>
+<button type="button" class="btn btn-danger me-2">Delete</button>
+<a href="/result" class="btn btn-success btn-lg">List</a>
+
+</div>
+
+
+    
+</body>
+</html>

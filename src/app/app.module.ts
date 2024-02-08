@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { HomeComponentComponent } from './components/home/home-component.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { FilterpipePipe } from './filterpipe.pipe';
+import { StockComponent } from './components/stock/stock.component';
+import { ResultComponent } from './components/result/result.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponentComponent,
     InvoiceComponent,
-    FilterpipePipe
+    FilterpipePipe,
+    StockComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,

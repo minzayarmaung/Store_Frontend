@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-invoice',
-  templateUrl: './invoice.component.html',
-  styleUrls: ['./invoice.component.css']
+  selector: 'app-stock',
+  templateUrl: './stock.component.html',
+  styleUrls: ['./stock.component.css']
 })
-export class InvoiceComponent {
+export class StockComponent {
+
    // This is for setting the current quantiy to 0
    stock = { quantity : 0}
 
@@ -34,5 +35,4 @@ export class InvoiceComponent {
    increaseQuantity(stock : any){
      stock.quantity++
    }
-
 }

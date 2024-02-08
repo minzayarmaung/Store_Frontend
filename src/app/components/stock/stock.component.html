@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Mangement</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+      <!-- Stock Table -->
+    <div class="container">
+        <h2>Stock List</h2>
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Stock ID</th>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <!-- Stocks Dynamic UI -->
+            <tr *ngFor="let stock of stocks">
+                <!-- ID -->
+                <td>{{ stock.id }}</td>
+              
+                <!-- Name -->
+                <td>{{ stock.name }}</td>
+              
+                <!-- Quantity -->
+                <td>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" (click)="decreaseQuantity(stock)">-</button>
+                        <input type="number" [(ngModel)]="stock.quantity">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" (click)="increaseQuantity(stock)">+</button>
+                    </div>
+                </td>
+                                
+                <!-- Price -->
+                <td>{{ stock.price }}</td>
+              
+                <!-- Amount -->
+                <td>{{ stock.quantity * stock.price }}</td>
+              
+                <!-- Action Buttons -->
+                <td>
+                    <button class="btn btn-primary me-2">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+
+          </tbody>
+
+            <!-- Total Prices -->
+          <tfoot>
+
+            <tr>
+                <th colspan="4" class="text-end">Total:</th>
+                <td><strong><span id="totalAmount">{{totalAmount | currency}}</span></strong></td>
+                <td></td>
+            </tr>
+            </tfoot>
+
+        </table>
+      </div>
+     <!-- Stock Table -->
+
+     <!-- Buttons -->
+
+<div class="buttons container" style="display: flex; justify-content:right;">
+
+    <button type="button" class="btn btn-primary me-2">Add</button>
+    <button type="button" class="btn btn-secondary me-2">Update</button>
+    <button type="button" class="btn btn-danger me-2">Delete</button>
+    <a href="/result" class="btn btn-success btn-lg">List</a>
+
+</div>
+
+
+</body>
