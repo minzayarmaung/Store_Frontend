@@ -11,10 +11,10 @@ export class InvoiceComponent {
 
    // Then setting these values to the UI
    stocks = [
-     {id: 1, name: 'Laptop', quantity: 10, price: 100},
-     {id: 2, name: 'Keyboard', quantity: 20, price: 150},
-     {id: 3, name: 'Mouse', quantity: 25, price: 150},
-     {id: 4, name: 'Laptop bags', quantity: 15, price: 150},
+     {id: 1, invoiceid: 1 , name: 'Laptop', quantity: 10, price: 100},
+     {id: 2, invoiceid: 2 , name: 'Mouse', quantity: 10, price: 20},
+     {id: 3, invoiceid: 3 , name: 'Keyboard', quantity: 10, price: 30},
+     {id: 4, invoiceid: 4 , name: 'Charger', quantity: 10, price: 40}
    ]
 
    // This is the function for getting total values of the total amount

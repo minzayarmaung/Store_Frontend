@@ -68,6 +68,7 @@
       <thead>
         <tr>
           <th>Stock ID</th>
+          <th>Invoice ID</th>
           <th>Name</th>
           <th>Quantity</th>
           <th>Price</th>
@@ -82,9 +83,13 @@
         <tr *ngFor="let stock of stocks">
             <!-- ID -->
             <td>{{ stock.id }}</td>
+
+            <!-- Stock ID -->
+            <td>{{ stock.invoiceid}}</td>
           
             <!-- Name -->
             <td>{{ stock.name }}</td>
+
           
             <!-- Quantity -->
             <td>
