@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DataService } from 'src/app/data.service';
+import { InvoiceData } from '../invoice-data/invoicedata.module';
 
 @Component({
   selector: 'app-invoice',
@@ -6,6 +11,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./invoice.component.css']
 })
 export class InvoiceComponent {
+
+  invoiceData : InvoiceData = new InvoiceData();
+
    // This is for setting the current quantiy to 0
    stock = { quantity : 0}
 
@@ -34,5 +42,39 @@ export class InvoiceComponent {
    increaseQuantity(stock : any){
      stock.quantity++
    }
+
+   // Saving Invoice Data 
+
+   constructor(private service: DataService , private router: Router ){}
+
+   data: any
+
+   form = new FormGroup({
+    invoiceId: new FormControl('', Validators.required),
+    cashierName: new FormControl('', Validators.required),
+    branch: new FormControl('', Validators.required),
+    date : new FormControl('', Validators.required),
+    time: new FormControl('' , Validators.required),
+    center: new FormControl('' , Validators.required)
+  })
+  
+  ngOnInit(): void {
+    // Initialize form with default values if necessary
+  }
+  
+  saveData(){
+    this.data = this.form.value
+    console.log(this.data)
+  
+    this.service.addInvoiceData(this.data).subscribe(data => {
+      console.log(data)
+    });
+
+    this.router.navigate(['/result']).then(() =>{
+      window.location.reload();
+    });
+    
+  }
+  
 
 }

@@ -17,6 +17,7 @@
         <div class="input-group">
             <input type="search" class="form-control rounded" placeholder="Type here to Search"[(ngModel)]="filterChange"
             aria-label="Search" aria-describedby="search-addon" />
+            
             <button type="button" class="btn btn-outline-primary me-2" data-mdb-ripple-init>search</button>
         </div>
         <br>
@@ -24,8 +25,10 @@
         <!-- Buttons -->
 
         <button type="button" class="btn btn-secondary me-2">All</button>
-        <button type="button" class="btn btn-danger me-2">Import</button>
-        <button type="button" class="btn btn-success me-2">Export</button>
+        <button type="button" class="btn btn-primary me-2">Import</button>
+
+        <button (click)="exportExcel()" type="button" class="btn btn-success me-2">Export</button>
+
     </div>
 
     <!-- Result Table -->
@@ -33,7 +36,7 @@
 <br>
 <div class="container">
 
-    <table class="table table-striped table-hover table-bordered">
+    <table class="table table-striped table-hover table-bordered" id="table-data">
 
         <thead>
           <tr>
@@ -49,98 +52,19 @@
 
         <tbody>
         <!-- Getting the Datas from the API From the Backend -->
-          <tr *ngFor = "let user of users | filterpipe : filterChange">
+        <tr *ngFor="let user of users | filterpipe: filterChange">
+          <td>{{ user.invoiceId}}</td>
+          <td>{{ user.cashierName }}</td>
+          <td>{{ user.date }}</td>
+          <td>{{ user.time }}</td>
+          <td>{{ user.branch }}</td>
+          <td>{{ user.center }}</td>
+        
+        <!-- user._____ must be the same name with the name with the Backend ! It took me 30 minutes to figure -->
 
-            <td>{{user.id}}</td>
-            <td>{{user.name}}</td>
-            <td>{{user.date}}</td>
-            <td>{{user.time}}</td>
-            <td>{{user.Branch}}</td>
-            <td>{{user.center}}</td>
-
-          </tr>
+      </tr>
 
         <!-- Testing the Data with the Input Directly -->
-
-        <tr>
-          <th scope="col">1</th>
-          <th scope="col">David</th>
-          <th scope="col">12,5,2023</th>
-          <th scope="col">13:55</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">5000</th>
-        </tr>
-
-        <tr>
-          <th scope="col">1</th>
-          <th scope="col">David</th>
-          <th scope="col">12,5,2023</th>
-          <th scope="col">13:55</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">5000</th>
-        </tr>
-
-        <tr>
-          <th scope="col">1</th>
-          <th scope="col">David</th>
-          <th scope="col">12,5,2023</th>
-          <th scope="col">13:55</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">5000</th>
-        </tr>
-
-        <tr>
-          <th scope="col">1</th>
-          <th scope="col">David</th>
-          <th scope="col">12,5,2023</th>
-          <th scope="col">13:55</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">5000</th>
-        </tr>
-
-        <tr>
-          <th scope="col">1</th>
-          <th scope="col">David</th>
-          <th scope="col">12,5,2023</th>
-          <th scope="col">13:55</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">5000</th>
-        </tr>
-
-        <tr>
-          <th scope="col">1</th>
-          <th scope="col">David</th>
-          <th scope="col">12,5,2023</th>
-          <th scope="col">13:55</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">5000</th>
-        </tr>
-
-        <tr>
-          <th scope="col">1</th>
-          <th scope="col">David</th>
-          <th scope="col">12,5,2023</th>
-          <th scope="col">13:55</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">5000</th>
-        </tr>
-
-        <tr>
-          <th scope="col">1</th>
-          <th scope="col">David</th>
-          <th scope="col">12,5,2023</th>
-          <th scope="col">13:55</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">Hleden</th>
-          <th scope="col">5000</th>
-        </tr>
           
         </tbody>
       </table>

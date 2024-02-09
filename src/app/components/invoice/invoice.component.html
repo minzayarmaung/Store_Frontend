@@ -9,55 +9,89 @@
 </head>
 <body>
 
-     <!-- Container for text boxes -->
- <div class="container">
-    <div class="row">
-    <!-- Left text boxes -->
-    <div class="col-md-6">
-        <div class="mb-3">
-        <label for="textBox1" class="form-label">Invoice ID</label>
-        <input type="text" class="form-control" id="textBox1" placeholder="Enter the Invoice ID.">
-        </div>
-        <div class="mb-3">
-        <label for="textBox2" class="form-label">Cashier Name</label>
-        <input type="text" class="form-control" id="textBox2" placeholder="Enter Cashier Name.">
-        </div>
-        <div class="mb-3">
-        <label for="textBox3" class="form-label">Branch</label>
-        <input type="text" class="form-control" id="textBox3" placeholder="Enter Branch Name.">
-        </div>
-    </div>
+  <form class="form" (saveData)="saveData()" [formGroup]="form">
+    <div class="container">
+      <div class="row">
+        <!-- Left text boxes -->
+        <div class="col-md-6">
 
-    <!-- Right text boxes -->
-    <div class="col-md-6">
+          <div class="mb-3">
+            <label for="invoiceId" class="form-label">Invoice ID</label>
+            <input type="text" formControlName="invoiceId" class="form-control" id="textBox1" placeholder="Enter the Invoice ID.">
 
-        <!-- Date Text Box-->
-        <div class="mb-3">
-            <label for="textBox4" class="form-label">Date</label>
-            <input type="date" class="form-control" id="textBox4">
+            <div *ngIf="form.controls['invoiceId'].invalid && form.controls['invoiceId'].touched" class="text-danger">
+                Invoice Id is Required.
+            </div>
+
+          </div>
+
+          <div class="mb-3">
+            <label for="cashierName" class="form-label">Cashier Name</label>
+            <input type="text" formControlName="cashierName" class="form-control" id="textBox2" placeholder="Enter Cashier Name." >
+
+            <div *ngIf="form.controls['cashierName'].invalid && form.controls['cashierName'].touched" class="text-danger">
+                Cashier Name is Required.
+            </div>
+
+          </div>
+
+          <div class="mb-3">
+            <label for="branch" class="form-label">Branch</label>
+            <input type="text" formControlName="branch" class="form-control" id="textBox3" placeholder="Enter Branch Name." >
+
+            <div *ngIf="form.controls['branch'].invalid && form.controls['branch'].touched" class="text-danger">
+              Branch Name is Required.
+            </div>
+
+          </div>
         </div>
-        
-        <!-- Time Text Box -->
-        <div class="mb-3">
-            <label for="textBox5" class="form-label">Time</label>
-            <input type="time" class="form-control" id="textBox5">
-        </div>
-        
-        <!-- Center Selector Box -->
-        <div class="mb-3">
-            <label for="textBox6" class="form-label">Center</label>
-            <select class="form-select" id="textBox6">
-            <option selected>Select center</option>
-            <option value="center1">GMP</option>
-            <option value="center2">Hleden Center</option>
-            <option value="center3">Junction Square</option>
-            <option value="center4">Junction City</option>
+    
+        <!-- Right text boxes -->
+        <div class="col-md-6">
+          <!-- Date Text Box-->
+          <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" formControlName="date" class="form-control" id="textBox4" >
+
+            <div *ngIf="form.controls['date'].invalid && form.controls['date'].touched" class="text-danger">
+              Date is Required.
+            </div>
+
+          </div>
+    
+          <!-- Time Text Box -->
+          <div class="mb-3">
+            <label for="time" class="form-label">Time</label>
+            <input type="time" formControlName="time" class="form-control" id="textBox5" >
+
+            <div *ngIf="form.controls['time'].invalid && form.controls['time'].touched" class="text-danger">
+              Time is Required.
+            </div>
+
+          </div>
+    
+          <!-- Center Selector Box -->
+          <div class="mb-3">
+            <label for="center" class="form-label">Center</label>
+            <select formControlName="center" class="form-select" id="textBox6" >
+              <option value="">Select center</option>
+              <option value="Ga Mhone Pwint Center">Ga Mhone Pwint Center</option>
+              <option value="Hleden Cente">Hleden Center</option>
+              <option value="Junction Square">Junction Square</option>
+              <option value="Junction City">Junction City</option>
+              <option value="City Mall">City Mall </option>
             </select>
 
+            <div *ngIf="form.get('center')?.touched && form.get('center')?.errors" class="text-danger">
+              Center is Required.
+            </div>
+
+          </div>
         </div>
+      </div>
     </div>
-    </div>
-</div>
+  </form>
+
 
 <br>
 
@@ -133,7 +167,8 @@
 
 <div class="buttons container" style="display: flex; justify-content:right;">
 
-<button type="button" class="btn btn-primary me-2">Add</button>
+<button type="button" class="btn btn-primary me-2" [disabled]="form.invalid" (click)="saveData()">Save</button>
+
 <button type="button" class="btn btn-secondary me-2">Update</button>
 <button type="button" class="btn btn-danger me-2">Delete</button>
 <a href="/result" class="btn btn-success btn-lg">List</a>

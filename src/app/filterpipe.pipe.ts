@@ -5,16 +5,19 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterpipePipe implements PipeTransform {
 
-  transform(value : any , searchFilter : any): any {
-    const lowerCaseSearch =  searchFilter.toLowerCase(); // Change everything the customer search to Lower Case
+  transform(value: any, searchFilter: any): any {
+    if (!value || !searchFilter) {
+      return value;
+    }
 
-    return value.filter((e:any) => {
-      // Converting All the fields to Lowercase to avoid Case-Sensitive
+    const lowerCaseSearch = searchFilter.toLowerCase();
 
-      const name = e.name.toLowerCase();
+    return value.filter((e: any) => {
+      const cashierName = e.cashierName ? e.cashierName.toLowerCase() : '';
+      const invoiceID = e.invoiceId ? e.invoiceId.toString() : ''; 
 
-      return name;
+      // Checking to make sure if either the invoiceID or cashierName contains the search filter
+      return invoiceID.includes(lowerCaseSearch) || cashierName.includes(lowerCaseSearch);
     });
   }
-
 }
