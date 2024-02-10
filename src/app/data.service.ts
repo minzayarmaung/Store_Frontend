@@ -24,4 +24,9 @@
     addInvoiceData(user: InvoiceData): Observable<any> {
       return this.http.post(`${this.url}save/invoiceData`, user, { responseType: 'text' });
     }
+
+    // Deleting Data from Stock Data Table
+    deleteStockData(id : number):Observable<any>{
+      return this.http.delete<any>(`${this.url}deleteStockData/${id}`)
+    }
   }    

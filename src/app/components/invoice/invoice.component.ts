@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DataService } from 'src/app/data.service';
@@ -10,26 +10,14 @@ import { InvoiceData } from '../invoice-data/invoicedata.module';
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.css']
 })
-export class InvoiceComponent {
+export class InvoiceComponent implements OnInit{
+
+  // Stock Form
+  stockForm!: FormGroup;
+  totalAmount = 0;
+
 
   invoiceData : InvoiceData = new InvoiceData();
-
-   // This is for setting the current quantiy to 0
-   stock = { quantity : 0}
-
-   // Then setting these values to the UI
-   stocks = [
-     {id: 1, invoiceid: 1 , name: 'Laptop', quantity: 10, price: 100},
-     {id: 2, invoiceid: 2 , name: 'Mouse', quantity: 10, price: 20},
-     {id: 3, invoiceid: 3 , name: 'Keyboard', quantity: 10, price: 30},
-     {id: 4, invoiceid: 4 , name: 'Charger', quantity: 10, price: 40}
-   ]
-
-   // This is the function for getting total values of the total amount
-   get totalAmount(){
-     return this.stocks.reduce((total, stock) => total + (stock.quantity * stock.price), 0);
-   }
-
 
    // To decrease quantity by 1 when we click 1 
    decreaseQuantity(stock : any){
@@ -44,8 +32,7 @@ export class InvoiceComponent {
    }
 
    // Saving Invoice Data 
-
-   constructor(private service: DataService , private router: Router ){}
+   constructor(private service: DataService , private router: Router , private fb: FormBuilder ){}
 
    data: any
 
@@ -58,8 +45,48 @@ export class InvoiceComponent {
     center: new FormControl('' , Validators.required)
   })
   
+  // Stock Functions Start
+
   ngOnInit(): void {
-    // Initialize form with default values if necessary
+    this.stockForm = this.fb.group({
+      items: this.fb.array([this.createItem()])
+    });
+
+    this.stockForm.valueChanges.subscribe(value =>{
+      this.totalAmount = value.items.reduce((total: number,item :any) => total + (item.quantity * item.price), 0);
+    });
+  }
+
+  createItem(): FormGroup{
+    return this.fb.group({
+      stockId: '',
+      invoiceId: '',
+      name: '',
+      quantity: '',
+      price: '',
+      amount: ''
+    });
+  }
+
+  addItem():void{
+    this.items.push(this.createItem());
+  }
+   
+  deleteItem(index: number):void{
+    this.items.removeAt(index);
+  }
+
+  get items(){
+    return this.stockForm.get('items') as FormArray;
+  }
+
+  // Stock Functions End
+
+  saveInvoice(){
+    console.log(this.stockForm.value);
+    this.service.addInvoiceData(this.stockForm.value).subscribe(data => {
+      console.log(data);
+    });
   }
   
   saveData(){
@@ -75,6 +102,22 @@ export class InvoiceComponent {
     });
     
   }
+
+  // // Delete Stock Data from the Table
+  // deleteStock(id: number){
+  //   this.service.deleteStockData(id).subscribe(data => {
+  //     this.stocks = this.stocks?.filter(stock => stock.id !== id)
+  //   })
+    
+  //   setTimeout(()=>{
+  //     window.location.reload(); 
+  //   } , 100);
+
+  // }
+
+
+
+
   
 
 }
