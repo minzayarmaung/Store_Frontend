@@ -1,8 +1,9 @@
   import { Injectable } from '@angular/core';
-  import { HttpClient } from '@angular/common/http'
+  import { HttpClient, HttpStatusCode } from '@angular/common/http'
   import { Observable } from 'rxjs';
   import { InvoiceData } from './components/invoice-data/invoicedata.module';
   import { ReactiveFormsModule } from '@angular/forms';
+import { StockData } from './components/stock-data/stockdata.module';
 
   @Injectable({
     providedIn: 'root'
@@ -23,6 +24,11 @@
     // Adding Data to Invoice - Create
     addInvoiceData(user: InvoiceData): Observable<any> {
       return this.http.post(`${this.url}save/invoiceData`, user, { responseType: 'text' });
+    }
+
+    // Adding Data to Stock - Create
+    addStockData(user: StockData):Observable<any>{
+      return this.http.post(`${this.url}save/stockData` , user , { responseType: 'json'});
     }
 
     // Deleting Data from Stock Data Table

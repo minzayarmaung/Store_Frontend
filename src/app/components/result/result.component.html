@@ -11,23 +11,26 @@
 
     <h2 class="text-center"> Result Table </h2>
     <br>
+    
     <!--- Search Function -->
-    <div class="buttons container" style="display: flex; justify-content: flex-start;">
+    <div class="buttons container" style="display: flex;">
 
         <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="Type here to Search"[(ngModel)]="filterChange"
-            aria-label="Search" aria-describedby="search-addon" />
+            <input type="search" id="searchBar" class="form-control narrow-search" placeholder="Type here to Search"[(ngModel)]="filterChange"
+            aria-label="Search" aria-describedby="search-addon" style="max-width: 50%" />
             
             <button type="button" class="btn btn-outline-primary me-2" data-mdb-ripple-init>search</button>
-        </div>
-        <br>
-
-        <!-- Buttons -->
+        
+            <!-- Buttons -->
 
         <button type="button" class="btn btn-secondary me-2">All</button>
-        <button type="button" class="btn btn-primary me-2">Import</button>
 
-        <button (click)="exportExcel()" type="button" class="btn btn-success me-2">Export</button>
+        <input type="file" id="excelFile" style="display: none;" (change)="importExcel($event)">
+
+        <button type="button" id="inputButton" class="btn btn-primary me-2" onclick="document.getElementById('excelFile').click()">Import</button>
+        
+        <button (click)="exportExcel()" type="button" class="btn btn-success ">Export</button>
+        </div>
 
     </div>
 
@@ -52,13 +55,15 @@
 
         <tbody>
         <!-- Getting the Datas from the API From the Backend -->
-        <tr *ngFor="let user of users | filterpipe: filterChange">
-          <td>{{ user.invoiceId}}</td>
-          <td>{{ user.cashierName }}</td>
-          <td>{{ user.date }}</td>
-          <td>{{ user.time }}</td>
-          <td>{{ user.branch }}</td>
-          <td>{{ user.center }}</td>
+        <tr *ngFor="let data of users | filterpipe: filterChange">
+          
+          <td>{{ data.invoiceId}}</td>
+          <td>{{ data.cashierName }}</td>
+          <td>{{ data.date }}</td>
+          <td>{{ data.time }}</td>
+          <td>{{ data.branch }}</td>
+          <td>{{ data.center }}</td>
+          <td>{{ data.totalAmount}}</td>
         
         <!-- user._____ must be the same name with the name with the Backend ! It took me 30 minutes to figure -->
 
@@ -67,6 +72,7 @@
         <!-- Testing the Data with the Input Directly -->
           
         </tbody>
+
       </table>
     
 </div>

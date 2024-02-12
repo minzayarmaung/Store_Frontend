@@ -9,70 +9,71 @@
 </head>
 <body>
 
-  <form class="form" (saveData)="saveData()" [formGroup]="form">
-    <div class="container">
+
+  <div class="container">
+    <form class="form" (saveData)="saveData()" [formGroup]="form">
       <div class="row">
         <!-- Left text boxes -->
         <div class="col-md-6">
-
+  
           <div class="mb-3">
-            <label for="invoiceId" class="form-label">Invoice ID</label>
+            <label for="textBox1" class="form-label">Invoice ID</label>
             <input type="text" formControlName="invoiceId" class="form-control" id="textBox1" placeholder="Enter the Invoice ID.">
-
+  
             <div *ngIf="form.controls['invoiceId'].invalid && form.controls['invoiceId'].touched" class="text-danger">
                 Invoice Id is Required.
             </div>
-
+  
           </div>
-
+  
           <div class="mb-3">
-            <label for="cashierName" class="form-label">Cashier Name</label>
+            <label for="textBox2" class="form-label">Cashier Name</label>
             <input type="text" formControlName="cashierName" class="form-control" id="textBox2" placeholder="Enter Cashier Name." >
-
+  
             <div *ngIf="form.controls['cashierName'].invalid && form.controls['cashierName'].touched" class="text-danger">
                 Cashier Name is Required.
             </div>
-
+  
           </div>
-
+  
           <div class="mb-3">
-            <label for="branch" class="form-label">Branch</label>
+            <label for="textBox3" class="form-label">Branch</label>
             <input type="text" formControlName="branch" class="form-control" id="textBox3" placeholder="Enter Branch Name." >
-
+  
             <div *ngIf="form.controls['branch'].invalid && form.controls['branch'].touched" class="text-danger">
               Branch Name is Required.
             </div>
-
+  
           </div>
         </div>
-    
+  
         <!-- Right text boxes -->
         <div class="col-md-6">
           <!-- Date Text Box-->
           <div class="mb-3">
-            <label for="date" class="form-label">Date</label>
+            <label for="textBox4" class="form-label">Date</label>
             <input type="date" formControlName="date" class="form-control" id="textBox4" >
-
+  
             <div *ngIf="form.controls['date'].invalid && form.controls['date'].touched" class="text-danger">
               Date is Required.
             </div>
-
+  
           </div>
-    
+  
           <!-- Time Text Box -->
           <div class="mb-3">
-            <label for="time" class="form-label">Time</label>
+            <label for="textBox5" class="form-label">Time</label>
             <input type="time" formControlName="time" class="form-control" id="textBox5" >
-
+  
             <div *ngIf="form.controls['time'].invalid && form.controls['time'].touched" class="text-danger">
               Time is Required.
             </div>
-
+  
           </div>
-    
+  
           <!-- Center Selector Box -->
           <div class="mb-3">
-            <label for="center" class="form-label">Center</label>
+            <label for="textBox6" class="form-label">Center</label>
             <select formControlName="center" class="form-select" id="textBox6" >
               <option value="">Select center</option>
               <option value="Ga Mhone Pwint Center">Ga Mhone Pwint Center</option>
@@ -81,23 +82,24 @@
               <option value="Junction City">Junction City</option>
               <option value="City Mall">City Mall </option>
             </select>
-
+  
             <div *ngIf="form.get('center')?.touched && form.get('center')?.errors" class="text-danger">
               Center is Required.
             </div>
-
+  
           </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
+  
+
 
 
 <br>
-
- <!-- Stock Table -->
- <div class="container">
-  <form [formGroup]="stockForm" (ngSubmit)="saveInvoice()">
+<!-- Stock Table -->
+<div class="container">
+  <form class="form" (saveData)="saveData()" [formGroup]="stockForm">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -106,42 +108,41 @@
           <th>Name</th>
           <th>Quantity</th>
           <th>Price</th>
-          <th>Amount</th>
-          <th>Action</th>
+          <th><button class="btn btn-primary btn-lg" (click)="addItem()">Add</button></th>
         </tr>
       </thead>
+
       <tbody formArrayName="items">
         <tr *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
-          <td><input type="text" formControlName="stockId"></td>
-          <td><input type="text" formControlName="invoiceId"></td>
-          <td><input type="text" formControlName="name"></td>
-          <td><input type="number" formControlName="quantity"></td>
-          <td><input type="number" formControlName="price"></td>
 
-          <td><input type="number" formControlName="amount" [readonly]="true"></td>
+          <td><input type="number" formControlName="stockId" id="stockId{{i}}" name="stockId{{i}}"></td>
 
+          <td><input type="text" formControlName="invoice" id="invoice{{i}}" name="invoice{{i}}"></td>
+
+          <td><input type="text" formControlName="name" id="name{{i}}" name="name{{i}}"></td>
+          <td><input type="number" formControlName="price" id="price{{i}}" name="price{{i}}"></td>
+          <td><input type="number" formControlName="quantity" id="quantity{{i}}" name="quantity{{i}}"></td> 
+  
           <td><button class="btn btn-danger" (click)="deleteItem(i)">Delete</button></td>
-        </tr>
-        <p>Total Amount: {{ totalAmount }}</p>
+
+          <tr>
+            <td colspan="4"></td>
+            <td><b>Total Amount:</b> {{ totalAmount }}</td>
+          </tr>
 
       </tbody>
     </table>
     
-    <button class="btn btn-primary me-2" (click)="addItem()">Add</button>
-    <button class="btn btn-primary" type="submit">Save</button>
   </form>
-
-
 </div>
 
- 
- <!-- Stock Table -->
+<!-- End Stock Table -->
 
  <!-- Buttons -->
 
 <div class="buttons container" style="display: flex; justify-content:right;">
 
-<button type="button" class="btn btn-primary me-2" [disabled]="form.invalid" (click)="saveData()">Save</button>
+<button type="button" class="btn btn-primary me-2"  (click)="saveData()">Save</button> [disabled]="form.invalid"
 
 <button type="button" class="btn btn-secondary me-2">Update</button>
 <button type="button" class="btn btn-danger me-2">Delete</button>

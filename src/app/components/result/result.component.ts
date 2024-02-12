@@ -47,5 +47,32 @@ export class ResultComponent implements OnInit {
 
   }
 
+  // Import Excel File to the Table
+
+  ExcelData: any;
+
+  importExcel(e : any){
+    
+    const file = e.target.files[0];
+    let fr = new FileReader();
+    
+    fr.readAsArrayBuffer(file);
+
+    fr.onload = ()=>{
+
+      let data = fr.result;
+      let workbook = XLSX.read(data , {type: 'array'});
+
+      const sheetName = workbook.SheetNames[0];
+
+      const sheet = workbook.Sheets[sheetName]
+      
+      this.ExcelData =  XLSX.utils.sheet_to_json(sheet , {raw: true})
+      console.log(this.ExcelData)
+
+    }
+    
+  }
+
   filterChange: string = ""; // Responsible for Searching Data and Filtering Data
 }
