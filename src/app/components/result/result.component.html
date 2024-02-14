@@ -9,9 +9,10 @@
 </head>
 <body>
 
-    <h2 class="text-center"> Result Table </h2>
-    <br>
     
+    <br>
+    <h1 class="text-center"> Result Table </h1>
+
     <!--- Search Function -->
     <div class="buttons container" style="display: flex;">
 
@@ -29,9 +30,18 @@
 
         <button type="button" id="inputButton" class="btn btn-primary me-2" onclick="document.getElementById('excelFile').click()">Import</button>
         
-        <button (click)="exportExcel()" type="button" class="btn btn-success ">Export</button>
+        <button (click)="exportExcel()" type="button" class="btn btn-success me-2 ">Export</button>
+
+        <a href="/" class="btn btn-primary btn me-2">New</a>
+
+        <select class="form-select me-2 custom-select" (change)="changeItemsPerPage($event)">
+          <option *ngFor="let option of [5, 10, 15, 20]">{{ option }}</option>
+        </select>
+
         </div>
 
+
+        
     </div>
 
     <!-- Result Table -->
@@ -45,25 +55,29 @@
           <tr>
             <th scope="col">Invoice ID</th>
             <th scope="col">Cashier</th>
-            <th scope="col">Date</th>
-            <th scope="col">Time</th>
+            <th scope="col">Date Time</th>
             <th scope="col">Branch</th>
             <th scope="col">Center</th>
             <th scope="col">Total</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
 
         <tbody>
         <!-- Getting the Datas from the API From the Backend -->
-        <tr *ngFor="let data of users | filterpipe: filterChange">
+        <tr *ngFor="let data of users | filterpipe: filterChange | paginate : {itemsPerPage: itemsPerPage , currentPage: p }">
           
           <td>{{ data.invoiceId}}</td>
           <td>{{ data.cashierName }}</td>
-          <td>{{ data.date }}</td>
-          <td>{{ data.time }}</td>
+          <td>{{ data.dateTime }}</td>
           <td>{{ data.branch }}</td>
           <td>{{ data.center }}</td>
           <td>{{ data.totalAmount}}</td>
+
+          <td> 
+            <button type="button" (click)="deleteSoftRecord(data.invoiceId)" class="btn btn-danger me-2">Delete</button>
+            <!-- Just found out the Error ! Because of data.invoiceId (I typed .id) which doesn't exist -->
+          </td>
         
         <!-- user._____ must be the same name with the name with the Backend ! It took me 30 minutes to figure -->
 
@@ -77,8 +91,11 @@
     
 </div>
 
-    <div class="container">
-        <a href="/" class="btn btn-success btn-lg">Back to Invoice</a>
-    </div>
+<!-- Data Pagination -->
+<div class="container d-flex justify-content-center mt-8">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+<!-- End Data Pagination -->
+
 
 </body>

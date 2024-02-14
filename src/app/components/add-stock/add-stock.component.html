@@ -1,0 +1,42 @@
+<!-- Dialog Modal Add Stock Form -->
+<mat-dialog-content class="dialog-content">
+    <form [formGroup]="stockForm" class="form">
+      <h2 mat-dialog-title>Stock Information</h2>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Stock ID</mat-label>
+        <input matInput formControlName="stockId" type="number">
+      </mat-form-field>
+
+      <div formGroupName="invoice">
+        <mat-form-field appearance="fill">
+          <mat-label>Invoice ID</mat-label>
+          <input matInput formControlName="invoiceId" type="number">
+        </mat-form-field>
+      </div>
+      
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="text">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Quantity</mat-label>
+        <input matInput formControlName="quantity" type="number">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Price</mat-label>
+        <input matInput formControlName="price" type="number">
+      </mat-form-field>
+
+    </form>
+  </mat-dialog-content>
+
+  
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="stockForm.value" cdkFocusInitial (click)="saveStockData()">Save</button>
+  </mat-dialog-actions>
+  <!-- End Dialog Modal Add Stock Form -->
+  

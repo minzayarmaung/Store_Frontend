@@ -2,12 +2,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
+import { HttpClient } from '@angular/common/http';
+
+
 import * as XLSX from 'xlsx';
 
 interface User {
   // Define properties based on the structure of the user data
   id: number;
   name: string;
+  dateTime : string;
+  date : string;
+  time: string;
+  status: string;
   // Add more properties as needed
 }
 
@@ -20,13 +27,46 @@ export class ResultComponent implements OnInit {
   users: User[] | undefined;
   url: string = "http://localhost:8080/";
 
-  constructor(private service: DataService, private router: Router) {}
+  constructor(private service: DataService, private router: Router , private http: HttpClient) {}
+
+  // Soft Delete Function
+  deleteSoftRecord(id: number){
+    console.log('ID:' , id);
+  
+    // Display a confirmation dialog
+    let confirmDelete = window.confirm('Are you sure you want to delete this record?');
+  
+    if (confirmDelete) {
+      this.service.softDelete(id).subscribe(
+        (response)=>{
+          console.log("Soft Deleted Successfully !" , response)
+          alert("Soft Deleted Successfully !");
+          window.location.reload();
+        },
+  
+        (error) => {
+          console.log("Error Soft Deleting !" , error)
+          alert("Error Soft Deleting !");
+        }
+      );
+    }
+  }
+  
 
   ngOnInit(): void {
     this.service.getResultTable().subscribe((data: User[]) => {
-      this.users = data;
+
+      this.users = data.filter(user => user.status !== 'inactive').map(user => ({
+        ...user,  
+        dateTime: `(${user.date}) ,  (${user.time})`
+       
+
+      }));
+      this.totalRows = data.length;
     });
   }
+
+  // Excel Export Function Start
 
   /* Default Name for Excel file when Download */
   fileName = "ExcelSheetFile.xlsx";
@@ -36,6 +76,9 @@ export class ResultComponent implements OnInit {
 
     /* Passing Table ID  */
     let data = document.getElementById("table-data");
+
+    data?.querySelectorAll("th:nth-child(7), td:nth-child(7)").forEach(cell => cell.remove());
+
     const ws:XLSX.WorkSheet = XLSX.utils.table_to_sheet(data)
 
     /* Generating workbook and add the worksheet */
@@ -46,6 +89,7 @@ export class ResultComponent implements OnInit {
     XLSX.writeFile(wb, this.fileName)
 
   }
+   // Excel Export Function End // 
 
   // Import Excel File to the Table
 
@@ -73,6 +117,18 @@ export class ResultComponent implements OnInit {
     }
     
   }
+
+  // Pagination
+  p:number = 1;
+  itemsPerPage:number = 5 
+  totalRows:any;
+
+  changeItemsPerPage(event: any) {
+    const target = event.target as HTMLSelectElement;
+    const value = target.value;
+    this.itemsPerPage = parseInt(value) || 5;
+  }
+  
 
   filterChange: string = ""; // Responsible for Searching Data and Filtering Data
 }

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddStockComponent } from './components/add-stock/add-stock.component';
+import { coerceStringArray } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'store';
+  
+  constructor( private dialog: MatDialog){}
+
+  
 }

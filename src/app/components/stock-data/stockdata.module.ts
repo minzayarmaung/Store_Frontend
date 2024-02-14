@@ -12,8 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   })
 
   export class StockData { 
-    stockId?: any;
-    invoiceId?:any;
+    stockId?: number;
+    invoiceId?: number;
     name?:string;
     price?:string;
     quantity?:BigInt;
