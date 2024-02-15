@@ -24,8 +24,6 @@
         
             <!-- Buttons -->
 
-        <button type="button" class="btn btn-secondary me-2">All</button>
-
         <input type="file" id="excelFile" style="display: none;" (change)="importExcel($event)">
 
         <button type="button" id="inputButton" class="btn btn-primary me-2" onclick="document.getElementById('excelFile').click()">Import</button>
@@ -58,7 +56,6 @@
             <th scope="col">Date Time</th>
             <th scope="col">Branch</th>
             <th scope="col">Center</th>
-            <th scope="col">Total</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -72,9 +69,10 @@
           <td>{{ data.dateTime }}</td>
           <td>{{ data.branch }}</td>
           <td>{{ data.center }}</td>
-          <td>{{ data.totalAmount}}</td>
 
           <td> 
+            <button type="button" class="btn btn-secondary me-2" (click)="updateInvoiceId(data.invoiceId)">Edit</button>
+
             <button type="button" (click)="deleteSoftRecord(data.invoiceId)" class="btn btn-danger me-2">Delete</button>
             <!-- Just found out the Error ! Because of data.invoiceId (I typed .id) which doesn't exist -->
           </td>

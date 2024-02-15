@@ -69,7 +69,7 @@ export class ResultComponent implements OnInit {
   // Excel Export Function Start
 
   /* Default Name for Excel file when Download */
-  fileName = "ExcelSheetFile.xlsx";
+  fileName = "ExportExcelSheetFile.xlsx";
 
   // Export to Excel File
   exportExcel(){
@@ -77,7 +77,7 @@ export class ResultComponent implements OnInit {
     /* Passing Table ID  */
     let data = document.getElementById("table-data");
 
-    data?.querySelectorAll("th:nth-child(7), td:nth-child(7)").forEach(cell => cell.remove());
+    data?.querySelectorAll("th:nth-child(6), td:nth-child(6)").forEach(cell => cell.remove());
 
     const ws:XLSX.WorkSheet = XLSX.utils.table_to_sheet(data)
 
@@ -117,6 +117,18 @@ export class ResultComponent implements OnInit {
     }
     
   }
+
+  // Update Invoice Data 
+updateInvoiceId(id: number) {
+  this.router.navigate(['updateInvoice', id
+
+]); // Corrected closing square bracket
+
+  setTimeout(() => {
+    window.location.reload();
+  }, 100); 
+}
+
 
   // Pagination
   p:number = 1;

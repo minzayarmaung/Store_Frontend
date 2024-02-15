@@ -86,7 +86,8 @@ export class InvoiceComponent implements OnInit {
       name: ['', Validators.required], 
       price: ['', Validators.required], 
       quantity: ['', Validators.required], 
-      invoiceId: ['', Validators.required]
+      invoiceId: ['', Validators.required],
+      amount : ['']
     });
   }
 

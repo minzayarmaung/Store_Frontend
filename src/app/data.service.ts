@@ -46,4 +46,14 @@
       return this.http.get<any[]>(this.url+'all_stock_data')
     }
 
+    // Get Invoice Data By Id  - Reading 
+    getInvoiceDataById(id: number): Observable<InvoiceData>{
+      return this.http.get<InvoiceData>(`${this.url}invoice/${id}`)
+    } 
+
+    // Updating Invoice Data from Result Table
+    updateInvoiceData(id?:number , user?: any): Observable<any>{
+      return this.http.put<any>(`${this.url}updateInvoice/${id}`, user)
+    }
+
   }    
