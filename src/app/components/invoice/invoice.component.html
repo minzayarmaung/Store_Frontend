@@ -122,13 +122,15 @@
         <td>{{ stock.name }}</td>
         <td>{{ stock.quantity }}</td>
         <td>{{ stock.price }}</td>
-        <td>{{ stock.quantity * stock.price }}</td>
+        <td>{{ stock.amount }}</td>
 
         <td><button class="btn btn-danger" (click)="deleteStockRow(stock.stockId)" >Delete</button></td>
 
       </tr>
+      
     </tbody>
   </table>
+  
 </div>
 <!-- End Stock Table -->
 

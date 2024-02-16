@@ -2,7 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
@@ -26,7 +27,7 @@ export class ResultComponent implements OnInit {
   users: User[] | undefined;
   url: string = "http://localhost:8080/";
 
-  constructor(private service: DataService, private router: Router , private http: HttpClient) {}
+  constructor(private service: DataService, private router: Router , private http: HttpClient ) {}
 
   // Soft Delete Function
   deleteSoftRecord(id: number){
@@ -96,31 +97,29 @@ export class ResultComponent implements OnInit {
    // Excel Export Function End // 
 
   // Import Excel File to the Table
-
   ExcelData: any;
-
+  
   importExcel(e : any){
-    
     const file = e.target.files[0];
-    let fr = new FileReader();
-    
-    fr.readAsArrayBuffer(file);
-
-    fr.onload = ()=>{
-
-      let data = fr.result;
-      let workbook = XLSX.read(data , {type: 'array'});
-
-      const sheetName = workbook.SheetNames[0];
-
-      const sheet = workbook.Sheets[sheetName]
-      
-      this.ExcelData =  XLSX.utils.sheet_to_json(sheet , {raw: true})
-      console.log(this.ExcelData)
-
-    }
-    
+    this.uploadExcelData(file);
   }
+
+  uploadExcelData(file: File){
+    let formData = new FormData();
+    formData.append('file', file);
+  
+    this.http.post('http://localhost:8080/excel/importData', formData)
+    .subscribe(
+      (Response) => {
+        console.log("Excel Data Uploaded Successfully: ", Response);
+      },  
+      (Error) => {
+        console.error("Error Uploading Excel Data : " , Error);
+      }
+    )
+  }
+  
+  // Import Excel File to the Table
 
   // Update Invoice Data 
 updateInvoiceId(id: number) {

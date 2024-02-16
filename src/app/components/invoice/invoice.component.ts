@@ -32,7 +32,7 @@ export class InvoiceComponent implements OnInit {
 
     this.service.getStockData().subscribe(
        (data: any) => {
-         this.stocks = data;
+         this.stocks = data;  
        },
        (error: any) => {
          console.error("Error Getting the Data From the Database : ", error);
@@ -73,7 +73,7 @@ export class InvoiceComponent implements OnInit {
     });
 
     this.stockForm.valueChanges.subscribe(value => {
-      this.totalAmount = value.items.reduce((total: number, item: any) => total + (item.quantity * item.price), 0);
+      this.totalAmount = value.items.reduce((total: number, item: any) => total + (item.quantity * item.price));
     });
 
     this.getStockData();
@@ -87,7 +87,7 @@ export class InvoiceComponent implements OnInit {
       price: ['', Validators.required], 
       quantity: ['', Validators.required], 
       invoiceId: ['', Validators.required],
-      amount : ['']
+      amount : this.fb.control({value: '', disabled: false})
     });
   }
 
@@ -99,6 +99,12 @@ export class InvoiceComponent implements OnInit {
     if(confirmSave){
     // Saving Invoice Details to Data
     this.data = this.form.value;
+
+   // Set the amount for each item
+   this.data.items.forEach((item: any) => {
+    item.amount = item.quantity * item.price;
+  });
+
     console.log(this.data);
 
     this.service.addInvoiceData(this.data).subscribe(data => {
@@ -125,8 +131,6 @@ deleteStockRow(stockId: number): void {
     window.location.reload();
   } , 100);
 }
-
-
 
   // this.router.navigate(['/result']).then(() =>{
     //   window.location.reload();
