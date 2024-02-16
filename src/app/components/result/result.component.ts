@@ -3,15 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 import { HttpClient } from '@angular/common/http';
-
-
+import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
 interface User {
   // Define properties based on the structure of the user data
   id: number;
   name: string;
-  dateTime : string;
+  //dateTime : string;
   date : string;
   time: string;
   status: string;
@@ -50,7 +49,7 @@ export class ResultComponent implements OnInit {
         }
       );
     }
-  }
+  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
   
 
   ngOnInit(): void {
@@ -58,7 +57,7 @@ export class ResultComponent implements OnInit {
 
       this.users = data.filter(user => user.status !== 'inactive').map(user => ({
         ...user,  
-        dateTime: `(${user.date}) ,  (${user.time})`
+       // dateTime: `(${user.date}) ,  (${user.time})`
        
 
       }));
@@ -74,19 +73,24 @@ export class ResultComponent implements OnInit {
   // Export to Excel File
   exportExcel(){
 
+    this.http.get('http://localhost:8080/excel/exportData' , {responseType : 'blob'})
+    .subscribe((data:Blob) => {
+      FileSaver.saveAs(data , 'ExportData.xlsx');
+    });
+
     /* Passing Table ID  */
-    let data = document.getElementById("table-data");
+    // let data = document.getElementById("table-data");
 
-    data?.querySelectorAll("th:nth-child(6), td:nth-child(6)").forEach(cell => cell.remove());
+    // data?.querySelectorAll("th:nth-child(6), td:nth-child(6)").forEach(cell => cell.remove());
 
-    const ws:XLSX.WorkSheet = XLSX.utils.table_to_sheet(data)
+    // const ws:XLSX.WorkSheet = XLSX.utils.table_to_sheet(data)
 
-    /* Generating workbook and add the worksheet */
-    const wb : XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb,ws, 'Sheet1')
+    // /* Generating workbook and add the worksheet */
+    // const wb : XLSX.WorkBook = XLSX.utils.book_new();
+    // XLSX.utils.book_append_sheet(wb,ws, 'Sheet1')
 
-    /* Saving to the File */
-    XLSX.writeFile(wb, this.fileName)
+    // /* Saving to the File */
+    // XLSX.writeFile(wb, this.fileName)
 
   }
    // Excel Export Function End // 
