@@ -92,27 +92,29 @@ export class InvoiceComponent implements OnInit {
   }
 
   saveData(): void {
-
     // Showing Window to Make Sure 
     let confirmSave = window.confirm("Are you sure you want to Save this data?")
 
     if(confirmSave){
-    // Saving Invoice Details to Data
-    this.data = this.form.value;
+        // Saving Invoice Details to Data
+        this.data = this.form.value;
 
-   // Set the amount for each item
-   this.data.items.forEach((item: any) => {
-    item.amount = item.quantity * item.price;
-  });
+        // Check if 'items' property exists in this.data
+        if ('items' in this.data) {
+            // Set the amount for each item
+            this.data.items.forEach((item: any) => {
+                item.amount = item.quantity * item.price;
+            });
+        }
 
-    console.log(this.data);
+        console.log(this.data);
 
-    this.service.addInvoiceData(this.data).subscribe(data => {
-      console.log(this.stockForm);
-    });  
-
-  }
+        this.service.addInvoiceData(this.data).subscribe(data => {
+            console.log(this.stockForm);
+        });  
+    }
 }
+
 
 // Delete Stock Row
 
@@ -130,6 +132,17 @@ deleteStockRow(stockId: number): void {
   setTimeout(()=>{
     window.location.reload();
   } , 100);
+}
+
+// Pagination
+p:number = 1;
+itemsPerPage:number = 5 
+totalRows:any;
+
+changeItemsPerPage(event: any) {
+  const target = event.target as HTMLSelectElement;
+  const value = target.value;
+  this.itemsPerPage = parseInt(value) || 5;
 }
 
   // this.router.navigate(['/result']).then(() =>{

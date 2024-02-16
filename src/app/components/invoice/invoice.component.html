@@ -102,9 +102,10 @@
 
 <!-- Stock Table -->
 <div class="container">
+  
   <table class="table table-striped">
     <thead>
-      <tr>
+      <tr >
         <th>Stock ID</th>
         <th>Invoice ID</th>
         <th>Name</th>
@@ -113,10 +114,11 @@
         <th>Amount</th>
         <th>Action</th>
         <th><button mat-raised-button color="primary" (click)="openDialog()">Add</button></th>
+        
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let stock of stocks">
+      <tr *ngFor="let stock of stocks | paginate : {itemsPerPage: itemsPerPage , currentPage: p }">
         <td>{{ stock.stockId }}</td>
         <td>{{ stock.invoice?.invoiceId }}</td>
         <td>{{ stock.name }}</td>
@@ -130,6 +132,10 @@
       
     </tbody>
   </table>
+  <!-- Data Pagination -->
+<div class="container d-flex justify-content-center mt-8">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
   
 </div>
 <!-- End Stock Table -->
