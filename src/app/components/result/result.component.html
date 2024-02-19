@@ -51,11 +51,13 @@
         <thead>
           <tr>
             <th scope="col">Invoice ID</th>
+            <th scope="col">Stock ID</th>
             <th scope="col">Cashier</th>
             <th scope="col">Date </th>
             <th scope="col">Time </th>
             <th scope="col">Branch</th>
             <th scope="col">Center</th>
+            <th scope="col">Amount</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -65,6 +67,7 @@
         <tr *ngFor="let data of users | filterpipe: filterChange | paginate : {itemsPerPage: itemsPerPage , currentPage: p }">
           
           <td>{{ data.invoiceId}}</td>
+          <td>{{ "Stock ID" }}</td>
           <td>{{ data.cashierName }}</td>
           <td>{{ data.date }}</td>
           <td>{{ data.time }}</td>
