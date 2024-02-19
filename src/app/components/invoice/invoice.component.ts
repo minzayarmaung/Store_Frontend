@@ -26,7 +26,7 @@ export class InvoiceComponent implements OnInit {
   constructor(private service: DataService, private router: Router,
      private fb: FormBuilder , private renderer : Renderer2 , private el : ElementRef ,private dialog: MatDialog) { }
 
-       // Getting All Data from the Stock Database to the Stock Table
+    // Getting All Data from the Stock Database to the Stock Table
   
   getStockData(): void {
 
@@ -38,8 +38,6 @@ export class InvoiceComponent implements OnInit {
          console.error("Error Getting the Data From the Database : ", error);
        }
      );
-
-    
   }
 
      openDialog():void{

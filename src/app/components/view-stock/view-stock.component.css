@@ -5,12 +5,3 @@
     max-width: 100px; /* Adjust the width as needed */
   }
   
-@media print{
-    button{
-        display: none;
-    }
-    .narrow-search{
-        display: none;
-    }  
-    
-}

@@ -124,12 +124,17 @@ export class ResultComponent implements OnInit {
   // Update Invoice Data 
 updateInvoiceId(id: number) {
   this.router.navigate(['updateInvoice', id
-  
+
 ]); // Corrected closing square bracket
 
   setTimeout(() => {
     window.location.reload();
   }, 100); 
+}
+
+// Print Function
+printPage(){
+  window.print();
 }
 
 

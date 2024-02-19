@@ -43,7 +43,7 @@
 
     // Getting Data from Stock Table
     getStockData(): Observable<any[]>{
-      return this.http.get<any[]>(this.url+'all_stock_data')
+      return this.http.get<any[]>(this.url+'view_stocks')
     }
 
     // Get Invoice Data By Id  - Reading 

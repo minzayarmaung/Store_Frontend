@@ -1,28 +1,33 @@
-<!-- Nav Bar -->
-<!-- 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">
+      <img src="https://static.vecteezy.com/system/resources/previews/009/122/394/original/mit-logo-mit-letter-mit-letter-logo-design-initials-mit-logo-linked-with-circle-and-uppercase-monogram-logo-mit-typography-for-technology-business-and-real-estate-brand-vector.jpg" alt="Bootstrap" width="30" height="30" style="border-radius: 50%;">
+    </a>
     
+    <!-- Toggler/collapsible Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <!-- Navbar links -->
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active text-center" aria-current="page" href="#">Home</a>
+        <li class="nav-item" [ngClass]="{ 'active-tab': isRouteActive('/') }">
+          <a class="nav-link" aria-current="page" href="#">Invoice</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-center" href="/invoice">Invoice</a>
+        <li class="nav-item" [ngClass]="{ 'active-tab': isRouteActive('/result') }">
+          <a class="nav-link" href="/result">Invoice Table</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-center" href="/stock">Stock</a>
+        <li class="nav-item" [ngClass]="{ 'active-tab': isRouteActive('/view_stocks') }">
+          <a class="nav-link" href="/view_stocks">Stock Table</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-center" href = "/result">Result Table</a>
-        </li>
+
       </ul>
     </div>
   </div>
-</nav> 
--->
+</nav>
 
-
+<br><br>
 
 <router-outlet></router-outlet>

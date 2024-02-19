@@ -93,56 +93,21 @@
         </div>
       </div>
     </form>
+
   </div>
   
 
-
-
 <br>
 
-<!-- Stock Table -->
+
 <div class="container">
-  
-  <table class="table table-striped">
-    <thead>
-      <tr >
-        <th>Stock ID</th>
-        <th>Invoice ID</th>
-        <th>Name</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Amount</th>
-        <th>Action</th>
-        <th><button mat-raised-button color="primary" (click)="openDialog()">Add</button></th>
-        
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let stock of stocks | paginate : {itemsPerPage: itemsPerPage , currentPage: p }">
-        <td>{{ stock.stockId }}</td>
-        <td>{{ stock.invoice?.invoiceId }}</td>
-        <td>{{ stock.name }}</td>
-        <td>{{ stock.quantity }}</td>
-        <td>{{ stock.price }}</td>
-        <td>{{ stock.amount }}</td>
-
-        <td><button class="btn btn-danger" (click)="deleteStockRow(stock.stockId)" >Delete</button></td>
-
-      </tr>
-      
-    </tbody>
-  </table>
-  <!-- Data Pagination -->
-<div class="container d-flex justify-content-center mt-8">
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  <button mat-raised-button color="primary" (click)="openDialog()">Add</button>
 </div>
-  
-</div>
-<!-- End Stock Table -->
+
 
  <!-- Buttons -->
-
-<div class="buttons container" style="display: flex; justify-content:right;">
+<br>  
+<div class="buttons container" style="display: flex; justify-content:left;">
 
 <button type="button" class="btn btn-primary me-2"  [disabled]="form.invalid" (click)="saveData()">Save</button> 
 

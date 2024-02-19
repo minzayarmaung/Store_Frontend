@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { UpdateInvoiceComponent } from './components/update-invoice/update-invoice.component';
+import { ViewStockComponent } from './components/view-stock/view-stock.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { UpdateInvoiceComponent } from './components/update-invoice/update-invoi
     ResultComponent,
     AddStockComponent,
     UpdateInvoiceComponent,
+    ViewStockComponent,
   ],
   imports: [
     BrowserModule,
