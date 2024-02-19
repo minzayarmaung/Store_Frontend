@@ -21,7 +21,14 @@ export class UpdateInvoiceComponent {
       this.service.getInvoiceDataById(id).subscribe(data =>{
         this.invoicedata = data
         console.log(this.invoicedata)
+
         
+        // Getting the current data with provided Id
+        this.form.patchValue({
+          cashierName: this.invoicedata.cashierName,
+          branch: this.invoicedata.branch,
+          center: this.invoicedata.center
+        })
       })
       
     }
@@ -43,11 +50,12 @@ export class UpdateInvoiceComponent {
       console.log(this.data)
 
       this.service.updateInvoiceData(this.invoicedata?.invoiceId, this.data).subscribe(data => {
+      
         console.log(data)
         
       })
 
-      this.router.navigate(['/'])
+      this.router.navigate(['/result'])
     }
     
 }
