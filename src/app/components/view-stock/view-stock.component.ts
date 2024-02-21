@@ -4,6 +4,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 
+interface User {
+  id: number;
+  invoiceId?: number;
+  stockId?: number;
+  stockName: string;
+  price: number;
+  quantity: number;
+  amount: number;
+}
+
+
 @Component({
   selector: 'app-view-stock',
   templateUrl: './view-stock.component.html',
@@ -25,8 +36,8 @@ export class ViewStockComponent {
     getStockData(): void {
 
       this.service.getStockData().subscribe(
-         (data: any) => {
-           this.stocks = data;  
+         (data: any[]) => {
+           this.stocks = data.filter(stock => stock.status == 'active');  
          },
          (error: any) => {
            console.error("Error Getting the Data From the Database : ", error);
@@ -35,27 +46,54 @@ export class ViewStockComponent {
     }
 
 
-  ngOnInit(): void {
+    ngOnInit(): void {
       this.getStockData();
-  }
-
-  // Delete Stock Row
-deleteStockRow(stockId: number): void {
-  this.service.deleteStockData(stockId).subscribe(
-    (data) => {
-      // Filter out the deleted stock from the stocks array
-      this.stocks = this.stocks.filter(stock => stock.stockId !== stockId);
-    },
-    (error) => {
-      console.error("Error deleting stock row:", error);
     }
-  );
 
-  setTimeout(()=>{
-    window.location.reload();
-  } , 100);
-}
-// End of Delete Stock Data
+    // Soft Delete
+
+    softDeleteStockData(stockId: number): void{
+      console.log('ID:' , stockId);
+  
+      // Display a confirmation dialog
+      let confirmDelete = window.confirm('Are you sure you want to delete this record?');
+    
+      if (confirmDelete) {
+        this.service.softDeleteStock(stockId).subscribe(
+          (response)=>{
+            console.log("Soft Deleted Successfully !" , response)
+            alert("Soft Deleted Successfully !");
+            window.location.reload();
+          },
+    
+          (error) => {
+            console.log("Error Soft Deleting !" , error)
+            alert("Error Soft Deleting !");
+          }
+        );
+      }
+    }
+    
+// Delete Permanent
+
+//   // Delete Stock Row
+// deleteStockRow(stockId: number): void {
+//   this.service.deleteStockData(stockId).subscribe(
+//     (data) => {
+//       // Filter out the deleted stock from the stocks array
+//       this.stocks = this.stocks.filter(stock => stock.stockId !== stockId);
+//     },
+//     (error) => {
+//       console.error("Error deleting stock row:", error);
+//     }
+//   );
+
+//   setTimeout(()=>{
+//     window.location.reload();
+//   } , 100);
+// }
+// // End of Delete Stock Data
+// Delete Permanent
 
 // Edit Stock Data
 editStockData(stockId : number){

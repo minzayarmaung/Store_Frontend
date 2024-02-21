@@ -36,9 +36,14 @@
       return this.http.delete<any>(`${this.url}deleteStockData/${id}`)
     }
 
-    // Soft Delete From Database
+    // Invoice Soft Delete From Database 
     softDelete(id:number){
       return this.http.put(`${this.url}table/softDelete/${id}`, null , { responseType: 'text'});
+    }
+
+    // Stock Soft Delete From Database
+    softDeleteStock(id:number){
+      return this.http.put(`${this.url}stock/softDelete/${id}` , null , {responseType: 'text'});
     }
 
     // Getting Data from Stock Table
@@ -51,10 +56,24 @@
       return this.http.get<InvoiceData>(`${this.url}invoice/${id}`)
     } 
 
+    // Get Stock Data By Id - Reading
+    getStockDataById(id: number): Observable<StockData>{
+      return this.http.get<InvoiceData>(`${this.url}stock/${id}`)
+    }
+
     // Updating Invoice Data from Result Table
     updateInvoiceData(id?:number , user?: any): Observable<any>{
       return this.http.put<any>(`${this.url}updateInvoice/${id}`, user)
     }
 
+    // Get StockId and Stock Amount By invoiceId LEFT JOIN - Reading
+     getInvoiceWithStockDetails(): Observable<any[]>{
+      return this.http.get<any[]>(this.url+'invoice-with-stock-details')
+    }
+
+    // Getting Available Stocks
+    getAvailableStockIds(): Observable<number[]>{
+      return this.http.get<number[]>(`${this.url}stocks/getStockIds`)
+    }
 
   }    

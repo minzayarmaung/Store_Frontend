@@ -44,19 +44,20 @@
     <!-- Result Table -->
 
 <br>
-<div class="container">
+<div class="container-fluid">
 
     <table class="table table-striped table-hover table-bordered" id="table-data">
 
         <thead>
           <tr>
-            <th scope="col">Invoice ID</th>
-            <th scope="col">Stock ID</th>
-            <th scope="col">Cashier</th>
+            <th scope="col">Invoice ID</th>     
+            <th scope="col">Cashier Name</th>
             <th scope="col">Date </th>
             <th scope="col">Time </th>
             <th scope="col">Branch</th>
             <th scope="col">Center</th>
+            <th scope="col">Stock ID</th>
+            <th scope="col">Stock Name</th>
             <th scope="col">Amount</th>
             <th scope="col">Actions</th>
           </tr>
@@ -66,16 +67,18 @@
         <!-- Getting the Datas from the API From the Backend -->
         <tr *ngFor="let data of users | filterpipe: filterChange | paginate : {itemsPerPage: itemsPerPage , currentPage: p }">
           
-          <td>{{ data.invoiceId}}</td>
-          <td>{{ "Stock ID" }}</td>
-          <td>{{ data.cashierName }}</td>
-          <td>{{ data.date }}</td>
-          <td>{{ data.time }}</td>
-          <td>{{ data.branch }}</td>
-          <td>{{ data.center }}</td>
+          <td class="text-end">{{ data.invoiceId}}</td>       
+          <td class="text-start">{{ data.cashierName }}</td>         
+          <td class="text-end">{{ data.date }}</td>
+          <td class="text-end">{{ data.time }}</td>
+          <td class="text-start">{{ data.branch }}</td>
+          <td class="text-start">{{ data.center }}</td>
+          <td class="text-end">{{ data.stockId }}</td>
+          <td class="text-start">{{ data.stockName }}</td>
+          <td class="text-end">{{ data.amount | number:'1.0-0' }}</td>
 
           <td> 
-            <button type="button" class="btn btn-secondary me-2" (click)="updateInvoiceId(data.invoiceId)">Edit</button>
+            <button type="button" class="btn btn-primary me-2" (click)="updateInvoiceId(data.invoiceId)">Edit</button>
 
             <button type="button" (click)="deleteSoftRecord(data.invoiceId)" class="btn btn-danger me-2">Delete</button>
             <!-- Just found out the Error ! Because of data.invoiceId (I typed .id) which doesn't exist -->

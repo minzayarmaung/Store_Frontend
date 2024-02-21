@@ -16,7 +16,7 @@
     <!-- Stock Table -->
     <div class="container">
   
-    <table class="table table-striped">
+    <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr >
           <th>Stock ID</th>
@@ -31,16 +31,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let stock of stocks | paginate : {itemsPerPage: itemsPerPage , currentPage: p }">
-          <td class="text-start">{{ stock.stockId }}</td>
-          <td class="text-start">{{ stock.invoice?.invoiceId }}</td>
-          <td>{{ stock.name }}</td>
-          <td class="text-start">{{ stock.quantity | number:'1.0-0' }}</td>
-          <td class="text-start">{{ stock.price | number:'1.0-0'}}</td>
-          <td class="text-start">{{ stock.amount | number:'1.0-0' }}</td>
+          <td class="text-end">{{ stock.stockId }}</td>
+          <td class="text-end">{{stock.invoice.invoiceId}}</td>
+          <td class="text-start">{{ stock.name }}</td>
+          <td class="text-end">{{ stock.quantity | number:'1.0-0' }}</td>
+          <td class="text-end">{{ stock.price | number:'1.0-0'}}</td>
+          <td class="text-end">{{ stock.amount | number:'1.0-0' }}</td>
   
           <td>
             <button class="btn btn-primary me-2" (click)="editStockData(stock.stockId)" >Edit</button>
-            <button class="btn btn-danger" (click)="deleteStockRow(stock.stockId)" >Delete</button>
+            <button class="btn btn-danger" (click)="softDeleteStockData(stock.stockId)" >Delete</button>
         </td>
         </tr>
         

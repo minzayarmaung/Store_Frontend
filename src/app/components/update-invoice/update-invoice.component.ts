@@ -55,7 +55,10 @@ export class UpdateInvoiceComponent {
         
       })
 
-      this.router.navigate(['/result'])
+      this.router.navigate(['/result']).then(() => {
+        window.location.reload();
+      })
+      
     }
     
 }

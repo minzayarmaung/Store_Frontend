@@ -6,17 +6,22 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { catchError, forkJoin, map, of, tap } from 'rxjs';
 
 interface User {
-  // Define properties based on the structure of the user data
   id: number;
-  name: string;
-  //dateTime : string;
-  date : string;
+  stockId?: number;
+  cashierName: string;
+  stockName: string;
+  date: string;
   time: string;
+  branch: string;
+  center: string;
   status: string;
-  // Add more properties as needed
+  amount: number;
 }
+
+
 
 @Component({
   selector: 'app-result',
@@ -54,17 +59,29 @@ export class ResultComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.service.getResultTable().subscribe((data: User[]) => {
+    this.service.getInvoiceWithStockDetails().subscribe((data: any[][]) => {
+      this.users = data.filter(userArray => userArray[6] !== 'inactive').map(userArray => ({
 
-      this.users = data.filter(user => user.status !== 'inactive').map(user => ({
-        ...user,  
-       // dateTime: `(${user.date}) ,  (${user.time})`
-       
+        id: userArray[0],
+        invoiceId: userArray[0],
+        cashierName: userArray[1], // Mapping invoiceId
+        stockName : userArray[8],
+        date: userArray[2],
+        time: userArray[3],
+        branch: userArray[4],
+        center: userArray[5],
+        status: userArray[6],
+        stockId: userArray[7],
+        amount: userArray[9]
 
       }));
-      this.totalRows = data.length;
+      this.totalRows = this.users.length;
     });
-  }
+    
+    
+    
+}
+  
 
   // Excel Export Function Start
 
@@ -79,22 +96,10 @@ export class ResultComponent implements OnInit {
       FileSaver.saveAs(data , 'ExportData.xlsx');
     });
 
-    /* Passing Table ID  */
-    // let data = document.getElementById("table-data");
-
-    // data?.querySelectorAll("th:nth-child(6), td:nth-child(6)").forEach(cell => cell.remove());
-
-    // const ws:XLSX.WorkSheet = XLSX.utils.table_to_sheet(data)
-
-    // /* Generating workbook and add the worksheet */
-    // const wb : XLSX.WorkBook = XLSX.utils.book_new();
-    // XLSX.utils.book_append_sheet(wb,ws, 'Sheet1')
-
-    // /* Saving to the File */
-    // XLSX.writeFile(wb, this.fileName)
 
   }
    // Excel Export Function End // 
+
 
   // Import Excel File to the Table
   ExcelData: any;

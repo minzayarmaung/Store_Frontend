@@ -1,10 +1,8 @@
 .active-tab {
-    font-weight: bold;
-  }
+  font-weight: bold;
+}
 
-  .navbar {
-    background-color: lightblue !important; /* Change "lightblue" to your desired color */
-  }
-  
+.navbar {
+  background-color: lightblue !important; /* Change "lightblue" to your desired color */
+}
 
-  

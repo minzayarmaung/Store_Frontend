@@ -103,6 +103,56 @@
 <div class="container">
   <button mat-raised-button color="primary" (click)="openDialog()">Add</button>
 </div>
+<br>
+
+
+<!-- Dynamic User Input Form -->
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Stock Code</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let stock of stocks; let i = index">
+        <td>
+          <select (change)="onChange($event, stock)" [(ngModel)]="stock.code">
+            <option *ngFor="let stockId of availableStockIds" [value]="stockId">{{ stockId }}</option>
+          </select>          
+        </td>
+
+        <td><input type="text" [(ngModel)]="stock.name" placeholder="Description" ></td>
+
+        <td ><input class="text-end" type="number" [(ngModel)]="stock.quantity " placeholder="Quantity" min="1"></td>
+
+        <td ><input class="text-end" type="number" [(ngModel)]="stock.price " placeholder="Price" min="1"></td>
+
+        <td class="text-end">{{ calculateAmount(stock) | number:'1.0-0' }} MMK</td>
+
+        <td><button class="btn btn-danger" (click)="removeRow(i)">Remove</button></td>
+      </tr>
+
+          <!-- Display total amount -->
+           <tr>
+             <td colspan="3"></td>
+            <td colspan="2" class="text-end"><strong>Total: {{ calculateTotal() | number:'1.0-0' }} MMK</strong></td>
+          </tr>
+
+    </tbody>
+
+  </table>
+  
+  <button class="btn btn-primary" (click)="addRow()">Add Row</button>
+</div>
+
+<!-- Dynamic User Input Form -->
 
 
  <!-- Buttons -->
@@ -114,7 +164,5 @@
 <a href="/result" class="btn btn-success btn-lg">List</a>
 
 </div>
-
-
 </body>
 </html>

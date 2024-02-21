@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service'; 
 import { InvoiceData } from '../invoice-data/invoicedata.module'; 
@@ -8,6 +9,14 @@ import { ViewChild } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddStockComponent } from '../add-stock/add-stock.component';
+import { StockData } from '../stock-data/stockdata.module';
+
+interface StockDetails {
+  name: string;
+  quantity: number;
+  price: number;
+  // Add any other properties if necessary
+}
 
 @Component({
   selector: 'app-invoice',
@@ -23,22 +32,11 @@ export class InvoiceComponent implements OnInit {
   stockForm!: FormGroup;
   totalAmount = 0;
 
+  availableStockIds: any[] = [];
+
   constructor(private service: DataService, private router: Router,
-     private fb: FormBuilder , private renderer : Renderer2 , private el : ElementRef ,private dialog: MatDialog) { }
-
-    // Getting All Data from the Stock Database to the Stock Table
-  
-  getStockData(): void {
-
-    this.service.getStockData().subscribe(
-       (data: any) => {
-         this.stocks = data;  
-       },
-       (error: any) => {
-         console.error("Error Getting the Data From the Database : ", error);
-       }
-     );
-  }
+     private fb: FormBuilder , private renderer : Renderer2 , private el : ElementRef ,private dialog: MatDialog,
+     private cdr: ChangeDetectorRef) { }
 
      openDialog():void{
       const  dialogRef = this.dialog.open(AddStockComponent ,{
@@ -74,7 +72,9 @@ export class InvoiceComponent implements OnInit {
       this.totalAmount = value.items.reduce((total: number, item: any) => total + (item.quantity * item.price));
     });
 
-    this.getStockData();
+    this.service.getAvailableStockIds().subscribe(ids => {
+      this.availableStockIds = ids;
+    })
 
   }
 
@@ -88,6 +88,54 @@ export class InvoiceComponent implements OnInit {
       amount : this.fb.control({value: '', disabled: false})
     });
   }
+
+  // Populated Stock Info
+  populateStockInfo(selectedValue: any, stock: any): void {
+    const selectedStock = this.stocks.find((s: any) => s.stock_id == selectedValue);
+    if (selectedStock && stock) {
+      stock.name = selectedStock.name;
+      stock.quantity = selectedStock.quantity;
+      stock.price = selectedStock.price;
+    }
+  }
+
+  onChange(event: Event, stock: any): void {
+    const selectedValue: number = parseInt((event.target as HTMLSelectElement)?.value);
+    if (!isNaN(selectedValue)) {
+      this.service.getStockDataById(selectedValue).subscribe((stockData: StockData) => {
+        if (stockData && stock) {
+          stock.name = stockData.name;
+          stock.quantity = stockData.quantity;
+          stock.price = stockData.price;
+        }
+      });
+    }
+  }
+
+  // Dynamic Row Adding 
+
+    addRow(){
+      this.stocks.push({ description : '', quantity : 1 , price: 1})
+    }
+
+    removeRow(index: number){
+      this.stocks.splice(index, 1);
+    }
+
+    calculateAmount(stock: any): number {
+      return stock.quantity * stock.price;
+    }
+    
+    
+    calculateTotal(): number {
+      let total = 0;
+      for (let stock of this.stocks) {
+        total += this.calculateAmount(stock);
+      }
+      return total;
+    }
+    
+  // Dynamic Row Adding 
 
   saveData(): void {
     // Showing Window to Make Sure 
@@ -143,7 +191,4 @@ changeItemsPerPage(event: any) {
   this.itemsPerPage = parseInt(value) || 5;
 }
 
-  // this.router.navigate(['/result']).then(() =>{
-    //   window.location.reload();
-    // });
 }
