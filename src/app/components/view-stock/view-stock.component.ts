@@ -31,13 +31,13 @@ export class ViewStockComponent {
   constructor(private service: DataService, private router: Router,
     private fb: FormBuilder , private renderer : Renderer2 , private el : ElementRef ,private dialog: MatDialog) { }
 
+    
     // Getting All Data from the Stock Database to the Stock Table
-  
     getStockData(): void {
 
       this.service.getStockData().subscribe(
          (data: any[]) => {
-           this.stocks = data.filter(stock => stock.status == 'active');  
+           this.stocks = data.filter(stock => stock.status == 'active' || stock.status == null);  
          },
          (error: any) => {
            console.error("Error Getting the Data From the Database : ", error);
