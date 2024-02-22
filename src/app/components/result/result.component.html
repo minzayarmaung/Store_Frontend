@@ -78,7 +78,7 @@
           <td class="text-end">{{ data.amount | number:'1.0-0' }}</td>
 
           <td> 
-            <button type="button" class="btn btn-primary me-2" (click)="updateInvoiceId(data.invoiceId)">Edit</button>
+            <button type="button" class="btn btn-primary me-2" (click)="updateInvoiceId(data.invoiceId)">Update</button>
 
             <button type="button" (click)="deleteSoftRecord(data.invoiceId)" class="btn btn-danger me-2">Delete</button>
             <!-- Just found out the Error ! Because of data.invoiceId (I typed .id) which doesn't exist -->

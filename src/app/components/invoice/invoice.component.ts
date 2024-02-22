@@ -147,6 +147,9 @@ export class InvoiceComponent implements OnInit {
 
         this.service.addInvoiceData(this.data).subscribe(data => {
             console.log(this.stockForm);
+
+        // Step 2
+        
         });  
     }
 }

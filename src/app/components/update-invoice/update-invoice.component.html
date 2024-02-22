@@ -3,7 +3,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   
     
-    <h2 class="text-center"> Update Invoice Data </h2>
+    <h2 class="text-center"> Update Data </h2>
 
     <div class="container ">
         <form class="form" [formGroup]="form">
@@ -31,6 +31,25 @@
                 </div>
       
               </div>
+
+                <!-- Center Selector Box -->
+                <div class="mb-3">
+                  <label for="textBox6" class="form-label">Center</label>
+                  <select formControlName="center" class="form-select" id="textBox6" >
+                    <option value="">Select center</option>
+                    <option value="Ga Mhone Pwint Center">Ga Mhone Pwint Center</option>
+                    <option value="Hleden Cente">Hleden Center</option>
+                    <option value="Junction Square">Junction Square</option>
+                    <option value="Junction City">Junction City</option>
+                    <option value="City Mall">City Mall </option>
+                  </select>
+        
+                  <div *ngIf="form.get('center')?.touched && form.get('center')?.errors" class="text-danger">
+                    Center is Required.
+                  </div>
+                  <br>
+                </div>             
+
             </div>
       
             <!-- Right text boxes -->
@@ -43,9 +62,7 @@
                 <div *ngIf="form.controls['date'].invalid && form.controls['date'].touched" class="text-danger">
                   Date is Required.
                 </div>
-      
               </div>
-      
               <!-- Time Text Box -->
               <div class="mb-3">
                 <label for="textBox5" class="form-label">Time</label>
@@ -57,29 +74,52 @@
       
               </div>
       
-              <!-- Center Selector Box -->
-              <div class="mb-3">
-                <label for="textBox6" class="form-label">Center</label>
-                <select formControlName="center" class="form-select" id="textBox6" >
-                  <option value="">Select center</option>
-                  <option value="Ga Mhone Pwint Center">Ga Mhone Pwint Center</option>
-                  <option value="Hleden Cente">Hleden Center</option>
-                  <option value="Junction Square">Junction Square</option>
-                  <option value="Junction City">Junction City</option>
-                  <option value="City Mall">City Mall </option>
-                </select>
-      
-                <div *ngIf="form.get('center')?.touched && form.get('center')?.errors" class="text-danger">
-                  Center is Required.
-                </div>
-                <br>
-                <button type="button" class="btn btn-primary me-2" (click)="update()">Update</button>
-                <a href="/result" class="btn btn-danger btn me-2">Cancel</a>
-      
-              </div>
             </div>
-            
           </div>
-         
         </form>
+
+
+     <!-- For Stock Data -->
+    <form class="form" [formGroup]="stockForm">
+      <div class="row">
+        <div class="col-md-6">
+
+          <div class="mb-3">
+            <label for="stockName" class="form-label">Stock Name</label>
+            <input type="text" formControlName="stockName" class="form-control" id="stockName" placeholder="Enter Stock Name.">
+            <!-- Validation message for stockName -->
+            <div *ngIf="stockForm.get('stockName')?.invalid && stockForm.get('stockName')?.touched" class="text-danger">
+              Stock Name is Required.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" formControlName="price" min="1" class="form-control" id="price">
+            <!-- Validation message for price -->
+            <div *ngIf="stockForm.get('price')?.invalid && stockForm.get('price')?.touched" class="text-danger">
+              Price is Required and must be a number.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+
+          <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" formControlName="quantity" min="1" class="form-control" id="quantity">
+            <!-- Validation message for quantity -->
+            <div *ngIf="stockForm.get('quantity')?.invalid && stockForm.get('quantity')?.touched" class="text-danger">
+              Quantity is Required and must be a positive number.
+            </div>
+          </div>
+
+        </div>
+      </div>
+      {{ stockForm.value| json}}
+    </form>
+
+
+    <button type="button" class="btn btn-primary me-2" (click)="update()">Update</button>
+    <a href="/result" class="btn btn-danger btn me-2">Cancel</a>
+
       </div>

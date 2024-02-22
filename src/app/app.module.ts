@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,11 +17,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   imports: [
     // Other imports...
     MatSelectModule
+  ],
+  declarations: [
+
   ],
   // Other module properties...
 })
@@ -30,7 +35,8 @@ export class YourModule { }
 import { MatInputModule } from '@angular/material/input';
 import { UpdateInvoiceComponent } from './components/update-invoice/update-invoice.component';
 import { ViewStockComponent } from './components/view-stock/view-stock.component';
-import { AddNewStockComponent } from './components/add-new-stock/add-new-stock.component';
+import { UpdateStockComponent } from './components/update-stock/update-stock.component';
+
 
 @NgModule({
   declarations: [
@@ -43,20 +49,21 @@ import { AddNewStockComponent } from './components/add-new-stock/add-new-stock.c
     AddStockComponent,
     UpdateInvoiceComponent,
     ViewStockComponent,
-    AddNewStockComponent,
+    UpdateStockComponent 
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
     MatInputModule,
     NgxPaginationModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

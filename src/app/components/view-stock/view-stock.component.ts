@@ -110,9 +110,11 @@ export class ViewStockComponent {
 // Delete Permanent
 
 // Edit Stock Data
-editStockData(stockId : number){
-
+updateStockData(id : number){
+  this.router.navigate(['updateStock', id
+]);
 }
+
 // End of Edit Stock Data
 
 // Pagination

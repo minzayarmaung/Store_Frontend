@@ -66,6 +66,11 @@
       return this.http.put<any>(`${this.url}updateInvoice/${id}`, user)
     }
 
+    // Updating Stock Data from Result Table
+    updateStockData(id?:number , user?: any):Observable<any>{
+      return this.http.put<any>(`${this.url}updateStock/${id}`, user)
+    }
+
     // Get StockId and Stock Amount By invoiceId LEFT JOIN - Reading
      getInvoiceWithStockDetails(): Observable<any[]>{
       return this.http.get<any[]>(this.url+'invoice-with-stock-details')

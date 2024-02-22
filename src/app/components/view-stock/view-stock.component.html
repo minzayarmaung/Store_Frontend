@@ -45,7 +45,7 @@
           <td class="text-end">{{ stock.amount | number:'1.0-0' }}</td>
   
           <td>
-            <button class="btn btn-primary me-2" (click)="editStockData(stock.stockId)" >Edit</button>
+            <button class="btn btn-primary me-2" (click)="updateStockData(stock.stockId)" >Update</button>
             <button class="btn btn-danger" (click)="softDeleteStockData(stock.stockId)" >Delete</button>
         </td>
         </tr>
