@@ -6,6 +6,7 @@ import { ResultComponent } from './components/result/result.component';
 import { UpdateInvoiceComponent } from './components/update-invoice/update-invoice.component';
 import { ViewStockComponent } from './components/view-stock/view-stock.component';
 import { AppComponent } from './app.component';
+import { AddNewStockComponent } from './components/add-new-stock/add-new-stock.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path : 'result' , component: ResultComponent},
   { path : 'updateInvoice/:id' , component: UpdateInvoiceComponent},
   { path : 'view_stocks' , component: ViewStockComponent},
+  { path : 'addnewStock' , component: AddNewStockComponent}
 ];
 
 @NgModule({

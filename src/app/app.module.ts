@@ -16,9 +16,21 @@ import { AddStockComponent } from './components/add-stock/add-stock.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+
+@NgModule({
+  imports: [
+    // Other imports...
+    MatSelectModule
+  ],
+  // Other module properties...
+})
+export class YourModule { }
+
 import { MatInputModule } from '@angular/material/input';
 import { UpdateInvoiceComponent } from './components/update-invoice/update-invoice.component';
 import { ViewStockComponent } from './components/view-stock/view-stock.component';
+import { AddNewStockComponent } from './components/add-new-stock/add-new-stock.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +43,7 @@ import { ViewStockComponent } from './components/view-stock/view-stock.component
     AddStockComponent,
     UpdateInvoiceComponent,
     ViewStockComponent,
+    AddNewStockComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +55,8 @@ import { ViewStockComponent } from './components/view-stock/view-stock.component
     MatDialogModule,
     MatButtonModule,
     MatInputModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

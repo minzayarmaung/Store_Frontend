@@ -1,42 +1,50 @@
 <!-- Dialog Modal Add Stock Form -->
 <mat-dialog-content class="dialog-content">
-    <form [formGroup]="stockForm" class="form">
-      <h2 mat-dialog-title>Stock Information</h2>
+  <form [formGroup]="stockForm" class="form">
+    <h2 mat-dialog-title>Stock Information</h2>
+
+    <mat-form-field appearance="fill">
+      <mat-label for="name">Stock Name</mat-label>
+      <input matInput formControlName="name" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label for="quantity">Quantity</mat-label>
+      <input matInput formControlName="quantity" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label for="invoiceId">Invoice ID</mat-label>
+      <mat-select formControlName="invoiceId" (selectionChange)="onInvoiceSelectionChange($event.value)">
+        <mat-option *ngFor="let invoiceId of availableInvoiceIds" [value]="invoiceId">{{ invoiceId }}</mat-option>
+      </mat-select>
+    </mat-form-field>      
 
       <mat-form-field appearance="fill">
-        <mat-label>Stock ID</mat-label>
-        <input matInput formControlName="stockId" type="number">
-      </mat-form-field>
-
-      <div formGroupName="invoice">
-        <mat-form-field appearance="fill">
-          <mat-label>Invoice ID</mat-label>
-          <input matInput formControlName="invoiceId" type="number">
-        </mat-form-field>
-      </div>
-      
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" type="text">
+        <mat-label for="cashierName">Cashier Name</mat-label>
+        <input matInput formControlName="cashierName" type="text" readonly="true">
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Quantity</mat-label>
-        <input matInput formControlName="quantity" type="number">
+        <mat-label for="branch">Branch</mat-label>
+        <input matInput formControlName="branch" type="text" readonly="true">
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Price</mat-label>
-        <input matInput formControlName="price" type="number">
-      </mat-form-field>
+      <!-- Add other invoice fields as needed -->
 
-    </form>
-  </mat-dialog-content>
 
-  
-  <mat-dialog-actions align="end">
-    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
-    <button mat-raised-button color="primary" [mat-dialog-close]="stockForm.value" cdkFocusInitial (click)="saveStockData()">Save</button>
-  </mat-dialog-actions>
-  <!-- End Dialog Modal Add Stock Form -->
-  
+    <!-- Add other stock fields as needed -->
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="stockForm.value" cdkFocusInitial (click)="saveStockData()">Save</button>
+</mat-dialog-actions>
+<!-- End Dialog Modal Add Stock Form -->

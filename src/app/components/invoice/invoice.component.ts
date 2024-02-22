@@ -38,17 +38,7 @@ export class InvoiceComponent implements OnInit {
      private fb: FormBuilder , private renderer : Renderer2 , private el : ElementRef ,private dialog: MatDialog,
      private cdr: ChangeDetectorRef) { }
 
-     openDialog():void{
-      const  dialogRef = this.dialog.open(AddStockComponent ,{
-          width: '750px',
-      });
-      
-      dialogRef.afterClosed().subscribe((result)=>{
-        console.log("The Dialog is Closed ");
-        console.log(result);
-      })
-  
-    }
+     
   
 
   data: any;

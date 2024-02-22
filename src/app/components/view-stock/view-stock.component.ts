@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
+import { AddStockComponent } from '../add-stock/add-stock.component';
 
 interface User {
   id: number;
@@ -30,6 +31,19 @@ export class ViewStockComponent {
 
   constructor(private service: DataService, private router: Router,
     private fb: FormBuilder , private renderer : Renderer2 , private el : ElementRef ,private dialog: MatDialog) { }
+
+    // Dialog Box 
+    openDialog():void{
+      const  dialogRef = this.dialog.open(AddStockComponent ,{
+          width: '750px',
+      });
+      
+      dialogRef.afterClosed().subscribe((result)=>{
+        console.log("The Dialog is Closed ");
+        console.log(result);
+      })
+  
+    }
 
     
     // Getting All Data from the Stock Database to the Stock Table

@@ -27,7 +27,7 @@
     }
 
     // Adding Data to Stock - Create
-    addStockData(user: StockData):Observable<any>{
+    addStockData(user: StockData[]):Observable<any>{
       return this.http.post(`${this.url}save/stockData` , user , { responseType: 'text'});
     }
 
@@ -74,6 +74,11 @@
     // Getting Available Stocks
     getAvailableStockIds(): Observable<number[]>{
       return this.http.get<number[]>(`${this.url}stocks/getStockIds`)
+    }
+
+    // Getting Available Invoic Ids
+    getAvailableInvoiceIds(): Observable<number[]>{
+      return this.http.get<number[]>(`${this.url}invoice/getInvoiceIds`)
     }
 
   }    
