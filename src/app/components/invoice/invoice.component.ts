@@ -10,7 +10,18 @@ import { Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddStockComponent } from '../add-stock/add-stock.component';
 import { StockData } from '../stock-data/stockdata.module';
+import { DatePipe } from '@angular/common';
+import { Time } from '@angular/common';
 
+interface Invoice {
+  invoiceId: any;
+  cashierName: string;
+  branch: string;
+  date: string;
+  time: string; // Define time as string
+  center: string;
+  status: string;
+}
 interface StockDetails {
   name: string;
   quantity: number;
@@ -37,8 +48,6 @@ export class InvoiceComponent implements OnInit {
   constructor(private service: DataService, private router: Router,
      private fb: FormBuilder , private renderer : Renderer2 , private el : ElementRef ,private dialog: MatDialog,
      private cdr: ChangeDetectorRef) { }
-
-     
   
 
   data: any;
@@ -127,32 +136,39 @@ export class InvoiceComponent implements OnInit {
     
   // Dynamic Row Adding 
 
-  saveData(): void {
-    // Showing Window to Make Sure 
-    let confirmSave = window.confirm("Are you sure you want to Save this data?")
+ // Saving Data 
 
-    if(confirmSave){
-        // Saving Invoice Details to Data
-        this.data = this.form.value;
+ saveData(): void {
+  let confirmSave = window.confirm("Are you sure you want to Save this data?");
+  
+  if (confirmSave) {
+    const manualInvoiceId = 25;
+    const invoice: Invoice = {
+      invoiceId: manualInvoiceId,
+      cashierName: this.form.value.cashierName || '',
+      branch: this.form.value.branch || '',
+      date: this.form.value.date || '',
+      time: this.form.value.time || '',
+      center: this.form.value.center || '',
+      status: 'active' 
+    };
 
-        // Check if 'items' property exists in this.data
-        if ('items' in this.data) {
-            // Set the amount for each item
-            this.data.items.forEach((item: any) => {
-                item.amount = item.quantity * item.price;
-            });
-        }
+    const stocks = this.stocks.map((stock: any) => ({
+      ...stock,
+      invoiceId: manualInvoiceId,
+    }));
 
-        console.log(this.data);
+    console.log("Invoice Data :", invoice);
+    console.log("Stock Data : ", stocks);
 
-        this.service.addInvoiceData(this.data).subscribe(data => {
-            console.log(this.stockForm);
-
-        // Step 2
-        
-        });  
-    }
+    this.service.addInvoiceAndStockData(invoice, stocks).subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.error("Error Saving invoice and stock data :", error);
+    })
+  }
 }
+
 
 
 // Delete Stock Row

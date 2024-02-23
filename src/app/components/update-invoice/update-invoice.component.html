@@ -80,43 +80,6 @@
 
 
      <!-- For Stock Data -->
-    <form class="form" [formGroup]="stockForm">
-      <div class="row">
-        <div class="col-md-6">
-
-          <div class="mb-3">
-            <label for="stockName" class="form-label">Stock Name</label>
-            <input type="text" formControlName="stockName" class="form-control" id="stockName" placeholder="Enter Stock Name.">
-            <!-- Validation message for stockName -->
-            <div *ngIf="stockForm.get('stockName')?.invalid && stockForm.get('stockName')?.touched" class="text-danger">
-              Stock Name is Required.
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="price" class="form-label">Price</label>
-            <input type="number" formControlName="price" min="1" class="form-control" id="price">
-            <!-- Validation message for price -->
-            <div *ngIf="stockForm.get('price')?.invalid && stockForm.get('price')?.touched" class="text-danger">
-              Price is Required and must be a number.
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-
-          <div class="mb-3">
-            <label for="quantity" class="form-label">Quantity</label>
-            <input type="number" formControlName="quantity" min="1" class="form-control" id="quantity">
-            <!-- Validation message for quantity -->
-            <div *ngIf="stockForm.get('quantity')?.invalid && stockForm.get('quantity')?.touched" class="text-danger">
-              Quantity is Required and must be a positive number.
-            </div>
-          </div>
-
-        </div>
-      </div>
-      {{ stockForm.value| json}}
-    </form>
 
 
     <button type="button" class="btn btn-primary me-2" (click)="update()">Update</button>

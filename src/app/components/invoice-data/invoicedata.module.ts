@@ -14,8 +14,8 @@ export class InvoiceData {
     invoiceId?:any;
     cashierName?:string;
     branch?:string;
-    date?:Date;
-    time?:Time;
+    date?:string;
+    time?:string;
     center?:string;
   }
   

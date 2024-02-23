@@ -86,4 +86,9 @@
       return this.http.get<number[]>(`${this.url}invoice/getInvoiceIds`)
     }
 
-  }    
+    // Saving Both Invoice and Stock Data
+    addInvoiceAndStockData(invoiceData: InvoiceData , stockData: StockData[]): Observable<any>{
+      const data = { invoiceData , stockData };
+      return this.http.post<any>(`${this.url}saveInvoiceAndStockData`, data)
+    }
+  }

@@ -21,12 +21,10 @@
           <div class="mb-3">
             <label for="textBox1" class="form-label">Invoice ID</label>
             <input type="text" formControlName="invoiceId" class="form-control" id="textBox1" placeholder="Enter the Invoice ID.">
-  
             <div *ngIf="form.controls['invoiceId'].invalid && form.controls['invoiceId'].touched" class="text-danger">
-                Invoice Id is Required.
+              Invoice Id is Required.
             </div>
-  
-          </div>
+          </div>          
   
           <div class="mb-3">
             <label for="textBox2" class="form-label">Cashier Name</label>
@@ -84,6 +82,8 @@
               <option value="Junction City">Junction City</option>
               <option value="City Mall">City Mall </option>
             </select>
+
+            {{ this.form.value | json}}
   
             <div *ngIf="form.get('center')?.touched && form.get('center')?.errors" class="text-danger">
               Center is Required.
@@ -96,13 +96,8 @@
 
   </div>
   
-
 <br>
-
-
-
 <br>
-
 
 <!-- Dynamic User Input Form -->
 <div class="container">
@@ -110,7 +105,7 @@
     <thead>
       <tr>
         <th>Stock Code</th>
-        <th>Description</th>
+        <th>Name</th>
         <th>Quantity</th>
         <th>Price</th>
         <th>Amount</th>
@@ -126,7 +121,7 @@
           </select>          
         </td>
 
-        <td><input type="text" [(ngModel)]="stock.name" placeholder="Description" ></td>
+        <td><input type="text" [(ngModel)]="stock.name" placeholder="Name" ></td>
 
         <td ><input class="text-end" type="number" [(ngModel)]="stock.quantity " placeholder="Quantity" min="1"></td>
 

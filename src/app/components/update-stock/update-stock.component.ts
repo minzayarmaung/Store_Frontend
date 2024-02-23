@@ -54,7 +54,7 @@ export class UpdateStockComponent {
       console.error('Error Updating Stock Data : ', error);
     });
 
-    this.router.navigate(['/result']).then(() => {
+      this.router.navigate(['/view_stocks']).then(() => {
       window.location.reload();
     })
     

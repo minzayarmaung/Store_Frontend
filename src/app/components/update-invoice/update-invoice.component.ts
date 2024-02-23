@@ -50,45 +50,21 @@ export class UpdateInvoiceComponent {
           center: this.invoicedata.center
         });
       });
-
-      this.service.getStockDataById(id).subscribe(data=>{
-        this.stockdata = data;
-        console.log(this.stockdata)
-
-        this.stockForm.patchValue({
-          stockName: this.stockdata.name,
-          quantity: this.stockdata.quantity?.toString(),
-          price: this.stockdata.price,
-
-        });
-      });
       
     }
 
-    update(){
+    update(): void{
+      let id = this.route.snapshot.params['id'];
+      const updateInvoiceData = this.form.value;
 
-      const updatedInvoiceData = this.data = this.form.value
-      const updatedStockData = this.stockForm.value;
-      console.log(this.data)
+      this.service.updateInvoiceData(id , updateInvoiceData).subscribe(()=>{
+        console.log("Invoice Data Updated Successfully !");
 
-      this.service.updateInvoiceData(this.invoicedata?.invoiceId, updatedInvoiceData).subscribe(data => {
-      
-        console.log('Invoice Data Updated Successfully ! ', updatedInvoiceData)
-        
+        this.router.navigate(['/result']).then(() => {
+          window.location.reload();
+        })
       })
-
-      //updatedStockData.invoiceId = this.stockdata?.invoiceId;
-
-      this.service.updateStockData(this.stockdata?.stockId, updatedStockData).subscribe(() => {
-        console.log('Stock Data Updated Successfully !' , updatedStockData);
-      }, (error) => {
-        console.error('Error Updating Stock Data : ', error);
-      });
-
-      this.router.navigate(['/result']).then(() => {
-        window.location.reload();
-      })
-      
     }
+    
     
 }
