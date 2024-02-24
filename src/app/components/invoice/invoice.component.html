@@ -82,8 +82,6 @@
               <option value="Junction City">Junction City</option>
               <option value="City Mall">City Mall </option>
             </select>
-
-            {{ this.form.value | json}}
   
             <div *ngIf="form.get('center')?.touched && form.get('center')?.errors" class="text-danger">
               Center is Required.

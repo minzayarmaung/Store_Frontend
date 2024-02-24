@@ -144,7 +144,7 @@ export class InvoiceComponent implements OnInit {
   if (confirmSave) {
     const manualInvoiceId = 25;
     const invoice: Invoice = {
-      invoiceId: manualInvoiceId,
+      invoiceId: this.form.value.invoiceId,
       cashierName: this.form.value.cashierName || '',
       branch: this.form.value.branch || '',
       date: this.form.value.date || '',
@@ -155,19 +155,27 @@ export class InvoiceComponent implements OnInit {
 
     const stocks = this.stocks.map((stock: any) => ({
       ...stock,
-      invoiceId: manualInvoiceId,
+      invoiceId: this.form.value.invoiceId,
     }));
 
     console.log("Invoice Data :", invoice);
     console.log("Stock Data : ", stocks);
 
-    this.service.addInvoiceAndStockData(invoice, stocks).subscribe(response => {
+    const dataToSend = {
+      invoiceId: manualInvoiceId,
+      invoice: invoice,
+      stocks: stocks
+    };
+
+    this.service.addInvoiceAndStockData(invoice , stocks).subscribe(response => {
       console.log(response);
+      window.location.reload();
     }, error => {
       console.error("Error Saving invoice and stock data :", error);
     })
-  }
+  } 
 }
+
 
 
 
