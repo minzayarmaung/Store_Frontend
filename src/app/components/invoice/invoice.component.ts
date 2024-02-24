@@ -156,6 +156,7 @@ export class InvoiceComponent implements OnInit {
     const stocks = this.stocks.map((stock: any) => ({
       ...stock,
       invoiceId: this.form.value.invoiceId,
+      amount: stock.quantity * stock.price,
     }));
 
     console.log("Invoice Data :", invoice);
