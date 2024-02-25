@@ -85,15 +85,15 @@
                       <label for="quantity{{i}}" class="form-label">Stock Quantity</label>
                       <input type="text" class="form-control" id="quantity{{i}}" formControlName="quantity" placeholder="Enter Stock Quantity">
                     </div>
-
-                  {{ form.value | json}}
+                    
                   </div>
                 </div>
               </div>
             </div>
     
             <!-- Update and Cancel Buttons -->
-            <div class="col-12 text-center">
+            <br>
+            <div class="col-12 text-start">
               <button type="button" class="btn btn-primary me-2" (click)="update()">Update</button>
               <a href="/result" class="btn btn-danger">Cancel</a>
             </div>
