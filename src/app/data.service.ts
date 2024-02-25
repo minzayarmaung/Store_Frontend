@@ -95,4 +95,13 @@
       }
       return this.http.post<any>(`${this.url}saveInvoiceAndStockData`, data , { responseType: 'text' as 'json'})
     }
+
+    // Updating Both Invoice and Stock Data
+    updateInvoiceAndStockData(id: number , invoice: any , stocks: any[]): Observable<any>{
+      const body = {
+        invoice : invoice, 
+        stocks : stocks
+      };
+      return this.http.put<any>(`${this.url}updateInvoiceAndStock/${id}` , body , { responseType: 'text' as 'json'});
+    }
   }

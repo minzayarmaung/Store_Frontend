@@ -50,8 +50,8 @@
 
         <thead>
           <tr>
-            <th scope="col">Invoice ID</th>     
-            <th scope="col">Cashier Name</th>
+            <th class="text-end" scope="col">Invoice ID</th>     
+            <th class="text-start" scope="col">Cashier Name</th>
             <th scope="col">Date </th>
             <th scope="col">Time </th>
             <th scope="col">Branch</th>
@@ -69,11 +69,11 @@
           
           <td class="text-end">{{ data.invoiceId}}</td>       
           <td class="text-start">{{ data.cashierName }}</td>         
-          <td class="text-end">{{ data.date }}</td>
-          <td class="text-end">{{ data.time }}</td>
+          <td class="text-start">{{ data.date }}</td>
+          <td class="text-start">{{ data.time }}</td>
           <td class="text-start">{{ data.branch }}</td>
           <td class="text-start">{{ data.center }}</td>
-          <td class="text-end">{{ data.stockId }}</td>
+          <td class="text-start">{{ data.stockId }}</td>
           <td class="text-start">{{ data.stockName }}</td>
           <td class="text-end">{{ data.amount | number:'1.0-0' }}</td>
 

@@ -3,62 +3,54 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   
     
-    <h2 class="text-center"> Update Data </h2>
+    <h2 class="text-center">Update Data</h2>
 
-    <div class="container ">
+    <div class="container">
         <form class="form" [formGroup]="form">
           <div class="row">
-            <!-- Left text boxes -->
+            <!-- Left text boxes for invoice details -->
             <div class="col-md-6">
-      
+    
               <div class="mb-3">
                 <label for="textBox2" class="form-label">Cashier Name</label>
-                <input type="text" formControlName="cashierName" class="form-control" id="textBox2"
-                placeholder="Enter Cashier Name." >
-      
+                <input type="text" formControlName="cashierName" class="form-control" id="textBox2" placeholder="Enter Cashier Name.">
                 <div *ngIf="form.controls['cashierName'].invalid && form.controls['cashierName'].touched" class="text-danger">
                     Cashier Name is Required.
                 </div>
-      
               </div>
-      
+    
               <div class="mb-3">
                 <label for="textBox3" class="form-label">Branch</label>
-                <input type="text" formControlName="branch" class="form-control" id="textBox3" placeholder="Enter Branch Name." >
-      
+                <input type="text" formControlName="branch" class="form-control" id="textBox3" placeholder="Enter Branch Name.">
                 <div *ngIf="form.controls['branch'].invalid && form.controls['branch'].touched" class="text-danger">
                   Branch Name is Required.
                 </div>
-      
               </div>
-
-                <!-- Center Selector Box -->
-                <div class="mb-3">
-                  <label for="textBox6" class="form-label">Center</label>
-                  <select formControlName="center" class="form-select" id="textBox6" >
-                    <option value="">Select center</option>
-                    <option value="Ga Mhone Pwint Center">Ga Mhone Pwint Center</option>
-                    <option value="Hleden Cente">Hleden Center</option>
-                    <option value="Junction Square">Junction Square</option>
-                    <option value="Junction City">Junction City</option>
-                    <option value="City Mall">City Mall </option>
-                  </select>
-        
-                  <div *ngIf="form.get('center')?.touched && form.get('center')?.errors" class="text-danger">
-                    Center is Required.
-                  </div>
-                  <br>
-                </div>             
-
+    
+              <!-- Center Selector Box -->
+              <div class="mb-3">
+                <label for="textBox6" class="form-label">Center</label>
+                <select formControlName="center" class="form-select" id="textBox6">
+                  <option value="">Select center</option>
+                  <option value="Ga Mhone Pwint Center">Ga Mhone Pwint Center</option>
+                  <option value="Hleden Center">Hleden Center</option>
+                  <option value="Junction Square">Junction Square</option>
+                  <option value="Junction City">Junction City</option>
+                  <option value="City Mall">City Mall</option>
+                </select>
+                <div *ngIf="form.get('center')?.touched && form.get('center')?.errors" class="text-danger">
+                  Center is Required.
+                </div>
+                <br>
+              </div>
             </div>
-      
-            <!-- Right text boxes -->
+    
+            <!-- Right text boxes for date and time -->
             <div class="col-md-6">
               <!-- Date Text Box-->
               <div class="mb-3">
                 <label for="textBox4" class="form-label">Date</label>
-                <input type="date" formControlName="date" class="form-control" id="textBox4" >
-      
+                <input type="date" formControlName="date" class="form-control" id="textBox4">
                 <div *ngIf="form.controls['date'].invalid && form.controls['date'].touched" class="text-danger">
                   Date is Required.
                 </div>
@@ -66,23 +58,45 @@
               <!-- Time Text Box -->
               <div class="mb-3">
                 <label for="textBox5" class="form-label">Time</label>
-                <input type="time" formControlName="time" class="form-control" id="textBox5" >
-      
+                <input type="time" formControlName="time" class="form-control" id="textBox5">
                 <div *ngIf="form.controls['time'].invalid && form.controls['time'].touched" class="text-danger">
                   Time is Required.
                 </div>
-      
               </div>
-      
+            </div>
+    
+            <!-- Dynamic Stock Data Section -->
+            <div class="col-12">
+              <h3>Stock Items</h3>
+              <!-- Use the "as" keyword to assert the type right in the template -->
+              <div *ngIf="form.get('stocks') as stocksArray" formArrayName="stocks">
+                <div *ngFor="let stock of stocks.controls; let i = index" [formGroupName]="i" class="card mb-2">
+                  <div class="card-body">
+                    <h5 class="card-title">Stock Item {{ i + 1 }}</h5>
+                    <div class="mb-3">
+                      <label for="name{{i}}" class="form-label">Stock Name</label>
+                      <input type="text" class="form-control" id="name{{i}}" formControlName="name" placeholder="Enter Stock Name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="price{{i}}" class="form-label">Stock Price</label>
+                      <input type="text" class="form-control" id="price{{i}}" formControlName="price" placeholder="Enter Stock Price">
+                    </div>
+                    <div class="mb-3">
+                      <label for="quantity{{i}}" class="form-label">Stock Quantity</label>
+                      <input type="text" class="form-control" id="quantity{{i}}" formControlName="quantity" placeholder="Enter Stock Quantity">
+                    </div>
+
+                  {{ form.value | json}}
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <!-- Update and Cancel Buttons -->
+            <div class="col-12 text-center">
+              <button type="button" class="btn btn-primary me-2" (click)="update()">Update</button>
+              <a href="/result" class="btn btn-danger">Cancel</a>
             </div>
           </div>
         </form>
-
-
-     <!-- For Stock Data -->
-
-
-    <button type="button" class="btn btn-primary me-2" (click)="update()">Update</button>
-    <a href="/result" class="btn btn-danger btn me-2">Cancel</a>
-
-      </div>
+    </div>

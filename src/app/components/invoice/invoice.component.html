@@ -99,15 +99,15 @@
 
 <!-- Dynamic User Input Form -->
 <div class="container">
-  <table class="table">
+  <table class="table table-striped table-hover table-bordered">
     <thead>
       <tr>
         <th>Stock Code</th>
         <th>Name</th>
         <th>Quantity</th>
         <th>Price</th>
-        <th>Amount</th>
-        <th>Action</th>
+        <th class="text-end">Amount</th>
+        <th class="text-center">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -127,7 +127,7 @@
 
         <td class="text-end">{{ calculateAmount(stock) | number:'1.0-0' }} MMK</td>
 
-        <td><button class="btn btn-danger" (click)="removeRow(i)">Remove</button></td>
+        <td class="text-center"><button class="btn btn-danger" (click)="removeRow(i)">Remove</button></td>
       </tr>
 
           <!-- Display total amount -->
