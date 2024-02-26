@@ -22,7 +22,7 @@
             <label for="textBox1" class="form-label">Invoice ID</label>
             <input type="text" formControlName="invoiceId" class="form-control" id="textBox1" placeholder="Enter the Invoice ID.">
             <div *ngIf="form.controls['invoiceId'].invalid && form.controls['invoiceId'].touched" class="text-danger">
-              Invoice Id is Required.
+              Invoice Id is Required and Must be Number.
             </div>
           </div>          
   
@@ -127,7 +127,7 @@
 
         <td class="text-end">{{ calculateAmount(stock) | number:'1.0-0' }} MMK</td>
 
-        <td class="text-center"><button class="btn btn-danger" (click)="removeRow(i)">Remove</button></td>
+        <td class="text-center"><button class="btn btn-danger" (click)="removeRow(i)"> Remove </button></td>
       </tr>
 
           <!-- Display total amount -->

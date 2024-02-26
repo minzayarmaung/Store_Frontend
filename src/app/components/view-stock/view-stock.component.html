@@ -27,7 +27,7 @@
         <tr >
           <th class="text-end">Stock ID</th>
           <th class="text-end">Invoice ID</th>
-          <th>Name</th>
+          <th class="text-end">Name</th>
           <th class="text-end">Quantity</th>
           <th class="text-end">Price</th>
           <th class="text-end">Amount</th>
@@ -39,7 +39,7 @@
         <tr *ngFor="let stock of stocks | paginate : {itemsPerPage: itemsPerPage , currentPage: p }">
           <td class="text-end">{{ stock.stockId }}</td>
           <td class="text-end">{{stock.invoice.invoiceId}}</td>
-          <td class="text-start">{{ stock.name }}</td>
+          <td class="text-end">{{ stock.name }}</td>
           <td class="text-end">{{ stock.quantity | number:'1.0-0' }}</td>
           <td class="text-end">{{ stock.price | number:'1.0-0'}}</td>
           <td class="text-end">{{ stock.amount | number:'1.0-0' }}</td>

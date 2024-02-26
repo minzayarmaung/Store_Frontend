@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service'; 
@@ -12,6 +12,18 @@ import { AddStockComponent } from '../add-stock/add-stock.component';
 import { StockData } from '../stock-data/stockdata.module';
 import { DatePipe } from '@angular/common';
 import { Time } from '@angular/common';
+
+// Validation to Check
+function invoiceIDValidator(control: AbstractControl) : ValidationErrors | null{
+  const value = control.value;
+
+  if(isNaN(value)){
+    return { 'notANumber' : true};
+  }
+
+  return null;
+}
+
 
 interface Invoice {
   invoiceId: any;
@@ -53,7 +65,7 @@ export class InvoiceComponent implements OnInit {
   data: any;
 
   form = new FormGroup({
-    invoiceId: new FormControl('', Validators.required),
+    invoiceId: new FormControl('', [Validators.required , invoiceIDValidator]),
     cashierName: new FormControl('', Validators.required),
     branch: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),

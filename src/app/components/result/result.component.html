@@ -51,15 +51,15 @@
         <thead>
           <tr>
             <th class="text-end" scope="col">Invoice ID</th>     
-            <th class="text-start" scope="col">Cashier Name</th>
-            <th scope="col">Date </th>
-            <th scope="col">Time </th>
-            <th scope="col">Branch</th>
-            <th scope="col">Center</th>
-            <th scope="col">Stock ID</th>
-            <th scope="col">Stock Name</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Actions</th>
+            <th class="text-end" scope="col">Cashier Name</th>
+            <th class="text-end" scope="col">Date </th>
+            <th class="text-end" scope="col">Time </th>
+            <th class="text-end" scope="col">Branch</th>
+            <th class="text-end" scope="col">Center</th>
+            <th class="text-end" scope="col">Stock ID</th>
+            <th class="text-end" scope="col">Stock Name</th>
+            <th class="text-end" scope="col">Amount</th>
+            <th class="text-center" scope="col">Actions</th>
           </tr>
         </thead>
 
@@ -68,13 +68,13 @@
         <tr *ngFor="let data of users | filterpipe: filterChange | paginate : {itemsPerPage: itemsPerPage , currentPage: p }">
           
           <td class="text-end">{{ data.invoiceId}}</td>       
-          <td class="text-start">{{ data.cashierName }}</td>         
-          <td class="text-start">{{ data.date }}</td>
-          <td class="text-start">{{ data.time }}</td>
-          <td class="text-start">{{ data.branch }}</td>
-          <td class="text-start">{{ data.center }}</td>
-          <td class="text-start">{{ data.stockId }}</td>
-          <td class="text-start">{{ data.stockName }}</td>
+          <td class="text-end">{{ data.cashierName }}</td>         
+          <td class="text-end">{{ data.date }}</td>
+          <td class="text-end">{{ data.time }}</td>
+          <td class="text-end">{{ data.branch }}</td>
+          <td class="text-end">{{ data.center }}</td>
+          <td class="text-end">{{ data.stockId }}</td>
+          <td class="text-end">{{ data.stockName }}</td>
           <td class="text-end">{{ data.amount | number:'1.0-0' }}</td>
 
           <td> 
