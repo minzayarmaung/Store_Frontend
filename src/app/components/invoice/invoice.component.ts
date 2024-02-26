@@ -10,8 +10,10 @@ import { Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddStockComponent } from '../add-stock/add-stock.component';
 import { StockData } from '../stock-data/stockdata.module';
+import { NgZone } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Time } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 // Validation to Check
 function invoiceIDValidator(control: AbstractControl) : ValidationErrors | null{
@@ -57,22 +59,48 @@ export class InvoiceComponent implements OnInit {
 
   availableStockIds: any[] = [];
 
-  constructor(private service: DataService, private router: Router,
+    constructor(private service: DataService, private router: Router,
      private fb: FormBuilder , private renderer : Renderer2 , private el : ElementRef ,private dialog: MatDialog,
-     private cdr: ChangeDetectorRef) { }
-  
+     private cdr: ChangeDetectorRef , private zone: NgZone , private sanitizer: DomSanitizer) { }
 
-  data: any;
+    imageSrc = "https://cdn3d.iconscout.com/3d/premium/thumb/upload-image-9298307-7628612.png?f=webp";
 
-  form = new FormGroup({
-    invoiceId: new FormControl('', [Validators.required , invoiceIDValidator]),
-    cashierName: new FormControl('', Validators.required),
-    branch: new FormControl('', Validators.required),
-    date: new FormControl('', Validators.required),
-    time: new FormControl('', Validators.required),
-    center: new FormControl('', Validators.required),
-    status : new FormControl('')
-  });
+    onFileSelected(event :any): void{
+      if(event.target.files && event.target.files[0]){
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.zone.run(() => {
+            this.imageSrc = reader.result as string;
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+    onImageLoad(){
+      console.log("Profile Image has Loaded ! ")
+    }
+
+
+     // Get Current Time
+     getCurrentTime(): string{
+      const now = new Date();
+      const hours = ('0' + now.getHours()).slice(-2);
+      const minutes = ('0' + now.getMinutes()).slice(-2);
+      return `${hours}:${minutes}`;
+     }
+
+   data: any;
+
+   form = new FormGroup({
+      invoiceId: new FormControl('', [Validators.required , invoiceIDValidator]),
+      cashierName: new FormControl('', Validators.required),
+      branch: new FormControl('', Validators.required),
+      date: new FormControl('', Validators.required),
+      time: new FormControl(this.getCurrentTime() , Validators.required),
+      center: new FormControl('', Validators.required),
+      status : new FormControl('')
+    });
 
   ngOnInit(): void {
     this.stockForm = this.fb.group({

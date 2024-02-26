@@ -22,13 +22,13 @@ class ExtendedStockData{
 })
 export class UpdateInvoiceComponent implements OnInit {
   form: FormGroup;
-
+  
   constructor(private service: DataService, private route: ActivatedRoute, private router: Router) {
     this.form = new FormGroup({
       cashierName: new FormControl('', Validators.required),
       branch: new FormControl('', Validators.required),
       date: new FormControl('', Validators.required),
-      time: new FormControl('', Validators.required),
+      time: new FormControl('' , Validators.required),
       center: new FormControl('', Validators.required),
       stocks: new FormArray([])
     });

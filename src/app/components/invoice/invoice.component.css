@@ -1,0 +1,7 @@
+.profile-pic {
+    width: 200px; /* Adjust as needed */
+    height: 200px; /* Adjust as needed */
+    border-radius: 50%; /* This makes the image circular */
+    object-fit: cover; /* This ensures the image covers the whole area */
+  }
+  

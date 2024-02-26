@@ -9,42 +9,38 @@
 </head>
 <body>
 
-    <h1 class="text-center"> Invoice Table </h1>
+    <h1 class="text-center"> Invoice List </h1>
 
     <!--- Search Function -->
-    <div class="buttons container" style="display: flex;">
+    <div class="buttons container" style="display: flex; justify-content:baseline">
 
-        <div class="input-group">
-            <input type="search" id="searchBar" class="form-control narrow-search" placeholder="Type here to Search"[(ngModel)]="filterChange"
-            aria-label="Search" aria-describedby="search-addon" style="max-width: 50%" />
-            
-            <button type="button" class="btn btn-outline-primary me-2" data-mdb-ripple-init>search</button>
         
-            <!-- Buttons -->
-
-        <input type="file" id="excelFile" style="display: none;" (change)="importExcel($event)">
-
-        <button type="button" id="inputButton" class="btn btn-primary me-2" onclick="document.getElementById('excelFile').click()">Import</button>
-        
-        <button (click)="exportExcel()" type="button" class="btn btn-success me-2 ">Export</button>
-        <button (click)="printPage()" type="button" class="btn btn-secondary me-2 ">Print</button>
-
-        <a href="/" id="new-button" class="btn btn-primary btn me-2">New</a>
-
-        <select class="form-select me-2 custom-select" (change)="changeItemsPerPage($event)">
-          <option *ngFor="let option of [5, 10, 15, 20]">{{ option }}</option>
-        </select>
-
-        </div>
-
-
         
     </div>
 
     <!-- Result Table -->
 
 <br>
-<div class="container-fluid">
+<div class="container-fluid" >
+
+        <div class="input-group">
+          <input type="search" id="searchBar" class="form-control narrow-search" placeholder="Type here to Search"[(ngModel)]="filterChange"
+          aria-label="Search" aria-describedby="search-addon" style="max-width: 20%" />
+          
+          <button type="button" class="btn btn-outline-primary me-2" data-mdb-ripple-init>search</button>
+
+          <!-- Buttons -->
+
+      <input type="file" id="excelFile" style="display: none;" (change)="importExcel($event)">
+
+      <button type="button" id="inputButton" class="btn btn-primary me-2" onclick="document.getElementById('excelFile').click()">Import</button>
+
+      <button (click)="exportExcel()" type="button" class="btn btn-success me-2 ">Export</button>
+      <button (click)="printPage()" type="button" class="btn btn-secondary me-2 ">Print</button>
+
+      <a href="/" id="new-button" class="btn btn-primary btn me-2">New</a>
+      </div>
+      <br>
 
     <table class="table table-striped table-hover table-bordered" id="table-data">
 
@@ -53,7 +49,6 @@
             <th class="text-end" scope="col">Invoice ID</th>     
             <th class="text-end" scope="col">Cashier Name</th>
             <th class="text-end" scope="col">Date </th>
-            <th class="text-end" scope="col">Time </th>
             <th class="text-end" scope="col">Branch</th>
             <th class="text-end" scope="col">Center</th>
             <th class="text-end" scope="col">Stock ID</th>
@@ -69,8 +64,7 @@
           
           <td class="text-end">{{ data.invoiceId}}</td>       
           <td class="text-end">{{ data.cashierName }}</td>         
-          <td class="text-end">{{ data.date }}</td>
-          <td class="text-end">{{ data.time }}</td>
+          <td class="text-end">{{ data.date + '   ( ' + data.time + ' )' }}</td>
           <td class="text-end">{{ data.branch }}</td>
           <td class="text-end">{{ data.center }}</td>
           <td class="text-end">{{ data.stockId }}</td>
@@ -98,8 +92,15 @@
 
 <!-- Data Pagination -->
 <div class="container d-flex justify-content-center mt-8">
+
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+  <select class="form-select me-5 custom-select smaller-select" (change)="changeItemsPerPage($event)">
+    <option *ngFor="let option of [5, 10, 15, 20]">{{ option }}</option>
+  </select>
+
 </div>
+
 <!-- End Data Pagination -->
 
 
