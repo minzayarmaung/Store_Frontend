@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators , AbstractControl} from '@angular/forms';
 import { InvoiceData } from '../invoice-data/invoicedata.module';
 import { StockData } from '../stock-data/stockdata.module';
 
@@ -33,7 +33,32 @@ export class UpdateInvoiceComponent implements OnInit {
       stocks: new FormArray([])
     });
   }
+  
+  addRow(){
+    this.stocks.push({ description : '', quantity : 1 , price: 1})
+  }
 
+  // Deleting Stocks
+  removeStock(index: number){
+
+  }
+
+  calculateAmount(stock: any): number {
+    const quantity = Number(stock.quantity);
+    const price = Number(stock.price);
+    return quantity * price;
+  }
+
+  calculateTotal(): number {
+    let total = 0;
+    this.stocks.controls.forEach((stockFormGroup: AbstractControl) => {
+      const quantity = stockFormGroup.get('quantity')?.value || 0;
+      const price = stockFormGroup.get('price')?.value || 0;
+      total += quantity * price;
+    });
+    return total;
+  }
+  
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];

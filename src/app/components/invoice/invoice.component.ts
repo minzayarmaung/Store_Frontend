@@ -64,6 +64,7 @@ export class InvoiceComponent implements OnInit {
      private cdr: ChangeDetectorRef , private zone: NgZone , private sanitizer: DomSanitizer) { }
 
     imageSrc = "https://cdn3d.iconscout.com/3d/premium/thumb/upload-image-9298307-7628612.png?f=webp";
+    imageSelected : boolean = false;
 
     onFileSelected(event :any): void{
       if(event.target.files && event.target.files[0]){
@@ -72,9 +73,11 @@ export class InvoiceComponent implements OnInit {
         reader.onload = () => {
           this.zone.run(() => {
             this.imageSrc = reader.result as string;
+            
           });
         };
         reader.readAsDataURL(file);
+        this.imageSelected = true;
       }
     }
     onImageLoad(){

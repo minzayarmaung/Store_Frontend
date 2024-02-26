@@ -65,32 +65,55 @@
               </div>
             </div>
     
-            <!-- Dynamic Stock Data Section -->
-            <div class="col-12">
-              <h3>Stock Items</h3>
-              <!-- Use the "as" keyword to assert the type right in the template -->
-              <div *ngIf="form.get('stocks') as stocksArray" formArrayName="stocks">
-                <div *ngFor="let stock of stocks.controls; let i = index" [formGroupName]="i" class="card mb-2">
-                  <div class="card-body">
-                    <h5 class="card-title">Stock Item {{ i + 1 }}</h5>
-                    <div class="mb-3">
-                      <label for="name{{i}}" class="form-label">Stock Name</label>
-                      <input type="text" class="form-control" id="name{{i}}" formControlName="name" placeholder="Enter Stock Name">
-                    </div>
-                    <div class="mb-3">
-                      <label for="price{{i}}" class="form-label">Stock Price</label>
-                      <input type="text" class="form-control" id="price{{i}}" formControlName="price" placeholder="Enter Stock Price">
-                    </div>
-                    <div class="mb-3">
-                      <label for="quantity{{i}}" class="form-label">Stock Quantity</label>
-                      <input type="text" class="form-control" id="quantity{{i}}" formControlName="quantity" placeholder="Enter Stock Quantity">
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-    
+      <!-- Dynamic Stock Data Section -->
+        <div class="container">
+
+          <!-- <div>
+            <button class="btn btn-primary" (click)="addRow()">Add Row</button>
+          </div>
+          <br> -->
+
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <th class="text-start">Stock Name</th>
+                <th class="text-start">Stock Price</th>
+                <th class="text-start">Stock Quantity</th>
+                <th class="text-center">Amount</th>
+                <th class="text-center">Actions</th> 
+              </tr>
+            </thead>
+            <tbody formArrayName="stocks">
+              <tr *ngFor="let stock of stocks.controls; let i = index" [formGroupName]="i">
+                <td class="text-start">
+                  <input type="text" class="form-control" formControlName="name" placeholder="Enter Stock Name">
+                </td>
+                <td class="text-end">
+                  <input type="number" class="form-control text-end" formControlName="price" placeholder="Enter Stock Price">
+                </td>
+                <td class="text-end">
+                  <input type="number" class="form-control text-end" formControlName="quantity" placeholder="Enter Stock Quantity">
+                </td>
+
+                <!-- Inside your *ngFor loop for displaying stocks -->
+                <td class="text-end">
+                  {{ calculateAmount(stocks.at(i).value) | number:'1.0-0' }} MMK
+                </td>
+          
+                <td class="text-center">
+                  <button type="button" class="btn btn-danger" (click)="removeStock(i)">Remove</button>
+                </td>      
+              </tr>
+
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2" class="text-end"><strong>Total: {{ calculateTotal() | number:'1.0-0' }} MMK</strong></td>
+              </tr>              
+
+          </tbody>
+         </table>
+
+        </div>
             <!-- Update and Cancel Buttons -->
             <br>
             <div class="col-12 text-start">

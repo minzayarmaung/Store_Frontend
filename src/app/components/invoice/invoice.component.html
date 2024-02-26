@@ -12,17 +12,19 @@
 <body>
 
   <div class="container">
+    <div class="row">
+      <!-- Image Section -->
+      <div class="col-md-2 d-flex align-items-center justify-content-center profile-pic-container">
+        <div>
+          <img class="profile-pic img-fluid" [src]="imageSrc" (click)="fileInput.click()" alt="Upload Profile Pic" 
+          style="cursor:pointer; max-width: 100%; height: auto;" (load)="onImageLoad()" class="rounded-circle">
+          <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none">
+          <h3 class="text-center" *ngIf="!imageSelected">Upload Your Profile Picture</h3>
+        </div>
+      </div>
+  
 
-    <h2> Upload Profile Pic </h2>
-
-    <img class="profile-pic" [src]="imageSrc" (click)="fileInput.click()" alt="Upload Profile Pic" width="10% height=10%" 
-    (load)="onImageLoad()">
-
-    <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none">
-
-  </div>
-
-  <div class="container">
+    <div class="col-md-9 invoice-form-container">
     <form class="form" (saveData)="saveData()" [formGroup]="form">
       <div class="row">
         <!-- Left text boxes -->
@@ -101,15 +103,20 @@
         </div>
       </div>
     </form>
-
   </div>
-  
-<br>
-<br>
+
 
 <!-- Dynamic User Input Form -->
 <div class="container">
+  <br>
+  <br>  
+    <div>
+      <button class="btn btn-primary" (click)="addRow()">Add Row</button>
+    </div>
+    <br>
+
   <table class="table table-striped table-hover table-bordered table-info">
+
     <thead>
       <tr>
         <th class="text-start">Stock Code</th>
@@ -150,7 +157,6 @@
 
   </table>
   
-  <button class="btn btn-primary" (click)="addRow()">Add Row</button>
 </div>
 
 <!-- Dynamic User Input Form -->
@@ -163,7 +169,8 @@
 <button type="button" class="btn btn-primary me-2"  [disabled]="form.invalid" (click)="saveData()">Save</button> 
 
 <a href="/result" class="btn btn-success btn-lg">List</a>
-
+</div>
+</div>
 </div>
 </body>
 </html>
