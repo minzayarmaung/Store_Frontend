@@ -122,7 +122,5 @@ p:number = 1;
 itemsPerPage:number = 5 
 totalRows:any;
 
-
-
 filterChange: string = ""; // Responsible for Searching Data and Filtering Data
 }

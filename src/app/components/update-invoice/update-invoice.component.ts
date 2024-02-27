@@ -13,6 +13,7 @@ class ExtendedStockData{
   name: string | undefined;
   price: number | undefined;
   quantity : number | undefined;
+  status? : string;
 }
 
 @Component({
@@ -34,14 +35,68 @@ export class UpdateInvoiceComponent implements OnInit {
     });
   }
   
-  addRow(){
-    this.stocks.push({ description : '', quantity : 1 , price: 1})
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.params['id'];
+    this.service.getInvoiceDataById(id).subscribe((data: any) => { 
+      const invoiceData = data as ExtendInvoiceData; // Type assertion :3
+      this.form.patchValue({
+        cashierName: invoiceData.cashierName,
+        branch: invoiceData.branch,
+        date: invoiceData.date,
+        time: invoiceData.time,
+        center: invoiceData.center
+      });
+  
+      if (invoiceData.stocks) { // Now accessing stocks from the asserted type
+        invoiceData.stocks.forEach((stock: ExtendedStockData) => { // Using ExtendedStockData for each stock
+          // To only Show data which are not Soft Deleted YET :3
+          if(stock.status !== 'inactive'){
+          const stockGroup = new FormGroup({
+            stockId : new FormControl(stock.stockId),
+            name: new FormControl(stock.name, Validators.required),
+            quantity: new FormControl(stock.quantity, Validators.required),
+            price: new FormControl(stock.price, Validators.required),
+          
+          });
+          (this.form.get('stocks') as FormArray).push(stockGroup);
+        }
+        });
+      }
+    });
+  }
+  
+
+  get stocks(): FormArray {
+    return this.form.get('stocks') as FormArray;
   }
 
   // Deleting Stocks
   removeStock(index: number){
-
+    const stock = this.stocks.at(index);
+    // Checking If the Rows got Data or Not :3
+    if(stock.get('stockId')?.value){
+      const stockId = stock.get('stockId')?.value;
+      this.service.softDeleteStock(stockId).subscribe(() => {
+        console.log(`Stock with ID ${stockId} soft-deleted Successfully..`)
+      } , error => {
+        console.error(" Error Soft-Deleting Stock :" , error);
+      });
+    } else {
+      this.stocks.removeAt(index);
+      console.log("Row with No Data Deleted Successfully....")
+    }
   }
+
+  addRow(){
+    const stockGroup = new FormGroup({
+      stockId : new FormControl(''),
+      name : new FormControl('', Validators.required),
+      quantity : new FormControl('', Validators.required),
+      price : new FormControl('' , Validators.required)
+    });
+    this.stocks.push(stockGroup)
+  } 
 
   calculateAmount(stock: any): number {
     const quantity = Number(stock.quantity);
@@ -57,39 +112,6 @@ export class UpdateInvoiceComponent implements OnInit {
       total += quantity * price;
     });
     return total;
-  }
-  
-
-  ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    this.service.getInvoiceDataById(id).subscribe((data: any) => { // Use any if you're unsure about the data structure
-      const invoiceData = data as ExtendInvoiceData; // Type assertion
-      this.form.patchValue({
-        cashierName: invoiceData.cashierName,
-        branch: invoiceData.branch,
-        date: invoiceData.date,
-        time: invoiceData.time,
-        center: invoiceData.center
-      });
-  
-      if (invoiceData.stocks) { // Now accessing stocks from the asserted type
-        invoiceData.stocks.forEach((stock: ExtendedStockData) => { // Using ExtendedStockData for each stock
-          const stockGroup = new FormGroup({
-            stockId : new FormControl(stock.stockId),
-            name: new FormControl(stock.name, Validators.required),
-            quantity: new FormControl(stock.quantity, Validators.required),
-            price: new FormControl(stock.price, Validators.required),
-            // Ensure other fields are handled appropriately
-          });
-          (this.form.get('stocks') as FormArray).push(stockGroup);
-        });
-      }
-    });
-  }
-  
-
-  get stocks(): FormArray {
-    return this.form.get('stocks') as FormArray;
   }
 
   update(): void {

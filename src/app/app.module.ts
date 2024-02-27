@@ -20,13 +20,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
+
 @NgModule({
   imports: [
     // Other imports...
     MatSelectModule
   ],
   declarations: [
-
   ],
   // Other module properties...
 })
@@ -36,7 +36,7 @@ import { MatInputModule } from '@angular/material/input';
 import { UpdateInvoiceComponent } from './components/update-invoice/update-invoice.component';
 import { ViewStockComponent } from './components/view-stock/view-stock.component';
 import { UpdateStockComponent } from './components/update-stock/update-stock.component';
-
+import { StockFilterPipe } from './pipes/stock-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -49,8 +49,8 @@ import { UpdateStockComponent } from './components/update-stock/update-stock.com
     AddStockComponent,
     UpdateInvoiceComponent,
     ViewStockComponent,
-    UpdateStockComponent 
-
+    UpdateStockComponent ,
+    StockFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -63,7 +63,7 @@ import { UpdateStockComponent } from './components/update-stock/update-stock.com
     MatInputModule,
     NgxPaginationModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

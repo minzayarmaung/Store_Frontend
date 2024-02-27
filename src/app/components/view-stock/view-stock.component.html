@@ -12,15 +12,23 @@
  
     <h1 class="text-center "> Stock Table </h1>
 
-    <div class="container">
+    <!-- <div class="container">
       <div class="container">
         <button mat-raised-button color="primary" (click)="openDialog()">Add</button>
       </div>
-    </div>  
+    </div>   -->
+  
     <br>
 
     <!-- Stock Table -->
-    <div class="container">
+    <div class="container-fluid">
+
+      <div class="input-group mb-3" style="max-width: 30%">
+        <input type="search" id="searchBar" class="form-control narrow-search" placeholder="Type here to Search" [(ngModel)]="filterChange"
+        aria-label="Search" aria-describedby="search-addon" />
+        <button type="button" class="btn btn-outline-primary me-3" data-mdb-ripple-init>search</button>
+        <button type="button" class="btn btn-secondary"> Print </button>
+      </div>
 
     <table class="table table-striped table-hover table-bordered">
       <thead>
@@ -36,7 +44,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let stock of stocks | paginate : {itemsPerPage: itemsPerPage , currentPage: p }">
+        <tr *ngFor="let stock of stocks | stockFilter : filterChange | paginate : {itemsPerPage: itemsPerPage , currentPage: p }">
           <td class="text-end">{{ stock.stockId }}</td>
           <td class="text-end">{{stock.invoice.invoiceId}}</td>
           <td class="text-end">{{ stock.name }}</td>
