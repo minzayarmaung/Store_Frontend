@@ -87,12 +87,7 @@
     }
 
     // Saving Both Invoice and Stock Data
-    addInvoiceAndStockData(invoiceData: InvoiceData , stockData: StockData[]): Observable<any>{
-      const data ={
-        invoiceId : invoiceData.invoiceId,
-        invoice : invoiceData,
-        stocks : stockData
-      }
+    addInvoiceAndStockData(data : FormData): Observable<any>{
       return this.http.post<any>(`${this.url}saveInvoiceAndStockData`, data , { responseType: 'text' as 'json'})
     }
 

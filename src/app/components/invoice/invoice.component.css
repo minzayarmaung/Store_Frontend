@@ -1,6 +1,6 @@
-.profile-pic {
-    width: 100px; 
-    height: 100px; 
+.profileImage {
+    width: 200px; 
+    height: 200px; 
     border-radius: 50%;
     object-fit: cover;
     position: absolute;
@@ -8,7 +8,12 @@
     left: 0; 
   }
   .profile-pic-container {
+    width: 200px;
+    height: 200px;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .invoice-form-container {
     padding-left: 20px; /* Add space to the left of the form container */

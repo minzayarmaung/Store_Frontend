@@ -63,7 +63,7 @@ export class InvoiceComponent implements OnInit {
      private fb: FormBuilder , private renderer : Renderer2 , private el : ElementRef ,private dialog: MatDialog,
      private cdr: ChangeDetectorRef , private zone: NgZone , private sanitizer: DomSanitizer) { }
 
-    imageSrc = "https://cdn3d.iconscout.com/3d/premium/thumb/upload-image-9298307-7628612.png?f=webp";
+    imageSrc = "https://cdn3d.iconscout.com/3d/premium/thumb/upload-image-9298307-7628612.png";
     imageSelected : boolean = false;
 
     onFileSelected(event :any): void{
@@ -81,7 +81,7 @@ export class InvoiceComponent implements OnInit {
       }
     }
     onImageLoad(){
-      console.log("Profile Image has Loaded ! ")
+      console.log("profileImage has Loaded ! ")
     }
 
 
@@ -102,7 +102,8 @@ export class InvoiceComponent implements OnInit {
       date: new FormControl('', Validators.required),
       time: new FormControl(this.getCurrentTime() , Validators.required),
       center: new FormControl('', Validators.required),
-      status : new FormControl('')
+      status : new FormControl(''),
+      profileImage : new FormControl('')
     });
 
   ngOnInit(): void {
@@ -157,7 +158,7 @@ export class InvoiceComponent implements OnInit {
   // Dynamic Row Adding 
 
     addRow(){
-      this.stocks.push({ description : '', quantity : 1 , price: 1})
+      this.stocks.push({ name : '', quantity : 1 , price: 1})
     }
 
     removeRow(index: number){
@@ -185,7 +186,7 @@ export class InvoiceComponent implements OnInit {
   let confirmSave = window.confirm("Are you sure you want to Save this data?");
   
   if (confirmSave) {
-    const manualInvoiceId = 25;
+    const formData = new FormData();
     const invoice: Invoice = {
       invoiceId: this.form.value.invoiceId,
       cashierName: this.form.value.cashierName || '',
@@ -195,32 +196,40 @@ export class InvoiceComponent implements OnInit {
       center: this.form.value.center || '',
       status: 'active' 
     };
+    formData.append('invoiceAndStocks', JSON.stringify({ invoice, stocks: this.stocks }));
+
+    // Appending the File if it is selected
+    const fileInput: HTMLInputElement = this.el.nativeElement.querySelector('#fileInput');
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      console.log("Image Data : " , fileInput.files[0]);
+      formData.append('profileImage', fileInput.files[0]);
+  }
 
     const stocks = this.stocks.map((stock: any) => ({
-      ...stock,
-      invoiceId: this.form.value.invoiceId,
-      amount: stock.quantity * stock.price,
+      name: stock.name,
+      quantity: stock.quantity,
+      price: stock.price
     }));
+
+    formData.append('stocks', JSON.stringify(stocks));
 
     console.log("Invoice Data :", invoice);
     console.log("Stock Data : ", stocks);
+    console.log("Form Data:", this.form.value);
+    console.log("Invoice ID:", this.form.value.invoiceId);
+    console.log("Image Data : " , this.form.value.profileImage)
 
-    const dataToSend = {
-      invoiceId: manualInvoiceId,
-      invoice: invoice,
-      stocks: stocks
-    };
 
-    this.service.addInvoiceAndStockData(invoice , stocks).subscribe(response => {
+    this.service.addInvoiceAndStockData(formData).subscribe(response => {
       console.log(response);
-      window.location.reload();
+      alert(" DATA SAVED SUCCESSFULLY !")
+      //window.location.reload();
     }, error => {
       console.error("Error Saving invoice and stock data :", error);
+      alert("ERROR SAVING DATA !!")
     })
   } 
 }
-
-
 
 
 // Delete Stock Row

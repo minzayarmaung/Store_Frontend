@@ -11,24 +11,27 @@
 </head>
 <body>
 
-  <div class="container">
-    <div class="row">
-      <!-- Image Section -->
-      <div class="col-md-2 d-flex align-items-center justify-content-center profile-pic-container">
-        <div>
-          <img class="profile-pic img-fluid" [src]="imageSrc" (click)="fileInput.click()" alt="Upload Profile Pic" 
-          style="cursor:pointer; max-width: 100%; height: auto;" (load)="onImageLoad()" class="rounded-circle">
-          <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none">
-          <h3 class="text-center" *ngIf="!imageSelected">Upload Your Profile Picture</h3>
-        </div>
-      </div>
   
-
-    <div class="col-md-9 invoice-form-container">
+  <div class="container">
     <form class="form" (saveData)="saveData()" [formGroup]="form">
-      <div class="row">
+    <div class="row">
+      <!-- Image Upload Section -->
+       <div class="col-md-3 d-flex align-items-center justify-content-center profile-pic-container me-5">
+        <div class="image">
+          <img [src]="imageSrc" (click)="fileInput.click()" class="profileImage" alt="Upload Profile Pic " 
+          style="cursor:pointer; max-width: 100%; height: auto;" (load)="onImageLoad()" >
+          <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none">
+          <br><br><br><br><br><br><br><br><br><br>
+          <h4 class="text-center" *ngIf="!imageSelected">Upload Cashier Pic</h4>
+        </div> 
+      </div>
+     
+      <br>
+
+    <div class="col-md-9">
+       <div class="row">
         <!-- Left text boxes -->
-        <div class="col-md-6">
+          <div class="col-md-6">
   
           <div class="mb-3">
             <label for="textBox1" class="form-label">Invoice ID</label>
@@ -102,7 +105,9 @@
           </div>
         </div>
       </div>
-    </form>
+  </div>
+  </div>
+  </form>
   </div>
 
 
@@ -169,8 +174,6 @@
 <button type="button" class="btn btn-primary me-2"  [disabled]="form.invalid" (click)="saveData()">Save</button> 
 
 <a href="/result" class="btn btn-success btn-lg">List</a>
-</div>
-</div>
 </div>
 </body>
 </html>
