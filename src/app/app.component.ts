@@ -3,6 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddStockComponent } from './components/add-stock/add-stock.component';
 import { coerceStringArray } from '@angular/cdk/coercion';
 import { Router } from '@angular/router';
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+
+
 
 @Component({
   selector: 'app-root',
@@ -17,6 +21,7 @@ export class AppComponent {
   isRouteActive(route: string): boolean {
     return this.router.url === route;
   }
+
 
   
 }

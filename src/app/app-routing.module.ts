@@ -14,7 +14,8 @@ const routes: Routes = [
   { path : 'result' , component: ResultComponent},
   { path : 'updateInvoice/:id' , component: UpdateInvoiceComponent},
   { path : 'view_stocks' , component: ViewStockComponent},
-  { path : 'updateStock/:id' , component: UpdateStockComponent}
+  { path : 'updateStock/:id' , component: UpdateStockComponent},
+  { path : 'generatePDFById/:invoiceId', component: UpdateInvoiceComponent}
 ];
 
 @NgModule({

@@ -4,6 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormControl, FormGroup, Validators , AbstractControl} from '@angular/forms';
 import { InvoiceData } from '../invoice-data/invoicedata.module';
 import { StockData } from '../stock-data/stockdata.module';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import { saveAs } from 'file-saver';
+
+(pdfMake as any).vsf = pdfFonts.pdfMake.vfs;
 
 class ExtendInvoiceData extends InvoiceData{
   stocks : ExtendedStockData[] | undefined;
@@ -88,6 +93,35 @@ export class UpdateInvoiceComponent implements OnInit {
     }
   }
 
+  // Generatin PDF
+  generatePDF(){
+      const ID = this.route.snapshot.params['id'];
+      console.log("URL Parameters : " , ID);
+      if(!ID){
+        console.error("No ID Found in the URL");
+        alert("No ID was FOUND !" )
+        return;
+      }
+      this.service.getDatabyEachIDPDF(ID).subscribe(blob => {
+        const blobUrl = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = `invoice-${ID}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+
+        window.URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(a);
+
+        alert("PDF File Generated! Please check your Downloads.😊");
+      }, error => {
+        console.error("Error Generating PDF :", error);
+      })
+
+    }
+
+
   addRow(){
     const stockGroup = new FormGroup({
       stockId : new FormControl(''),
@@ -115,7 +149,7 @@ export class UpdateInvoiceComponent implements OnInit {
   }
 
   update(): void {
-    const id = this.route.snapshot.params['id'];
+    const id = this.route.snapshot.params['invoiceId'];
     const updateInvoiceData = this.form.value;
     const updatedStockData = this.stocks.value;
 

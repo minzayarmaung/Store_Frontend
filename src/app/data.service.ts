@@ -99,4 +99,10 @@
       };
       return this.http.put<any>(`${this.url}updateInvoiceAndStock/${id}` , body , { responseType: 'text' as 'json'});
     }
-  }
+
+    // Getting Invoice And Stock Data by Each ID PDF Export
+    getDatabyEachIDPDF(invoiceId: number): Observable<Blob> {
+      return this.http.get(`${this.url}pdf/generatePDFById/${invoiceId}`, { responseType: 'blob' });
+    }
+
+  } 
