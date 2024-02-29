@@ -137,10 +137,12 @@ updateInvoiceId(id: number) {
   }, 100); 
 }
 
-// Print Function
-printPage(){
-  window.print();
-}
+  // Print Function
+  generatePDF(){
+
+    window.print();
+    
+  }
 
 
   // Pagination
