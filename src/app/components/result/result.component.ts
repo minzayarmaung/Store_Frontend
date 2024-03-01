@@ -139,8 +139,9 @@ updateInvoiceId(id: number) {
 
   // Print Function
   generatePDF(){
-
-    window.print();
+    this.service.getInvoiceWithStockDetailsPDF().subscribe((data: Blob) => {
+      FileSaver.saveAs(data , 'InvoiceWithStockDetails.pdf' )
+    })
     
   }
 

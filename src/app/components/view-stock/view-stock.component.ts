@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 import { AddStockComponent } from '../add-stock/add-stock.component';
+import * as FileSaver from 'file-saver';
 
 interface User {
   id: number;
@@ -59,6 +60,12 @@ export class ViewStockComponent {
        );
     }
 
+    // Generating PDF File 
+    generatePDF(){
+      this.service.getStockDataPDF().subscribe((data=>{
+        FileSaver.saveAs(data , "StockList.pdf")
+      }))
+    }
 
     ngOnInit(): void {
       this.getStockData();
@@ -114,7 +121,6 @@ updateStockData(id : number){
   this.router.navigate(['updateStock', id
 ]);
 }
-
 // End of Edit Stock Data
 
 // Pagination

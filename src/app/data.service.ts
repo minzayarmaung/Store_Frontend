@@ -105,4 +105,14 @@
       return this.http.get(`${this.url}pdf/generatePDFById/${invoiceId}`, { responseType: 'blob' });
     }
 
+    // Getting Invoice with Stock Details in PDF Export
+    getInvoiceWithStockDetailsPDF(): Observable<Blob>{
+      return this.http.get(`${this.url}pdf/generatePDFInvoiceList` , { responseType : 'blob' });
+    }
+
+    // Getting Stock Data in PDF Export 
+    getStockDataPDF(): Observable<Blob>{
+      return this.http.get(`${this.url}pdf/generatePDFStockList` , {responseType : 'blob'});
+    }
+
   } 

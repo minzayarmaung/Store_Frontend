@@ -27,7 +27,7 @@
         <input type="search" id="searchBar" class="form-control narrow-search" placeholder="Type here to Search" [(ngModel)]="filterChange"
         aria-label="Search" aria-describedby="search-addon" />
         <button type="button" class="btn btn-outline-primary me-3" data-mdb-ripple-init>search</button>
-        <button type="button" class="btn btn-success"> Print </button>
+        <button type="button" class="btn btn-success" (click)="generatePDF()"> Generate as PDF </button>
       </div>
 
     <table class="table table-striped table-hover table-bordered">
