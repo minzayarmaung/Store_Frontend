@@ -203,7 +203,7 @@ export class InvoiceComponent implements OnInit {
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       console.log("Image Data : " , fileInput.files[0]);
       formData.append('profileImage', fileInput.files[0]);
-  }
+    }
 
     const stocks = this.stocks.map((stock: any) => ({
       name: stock.name,
@@ -216,20 +216,21 @@ export class InvoiceComponent implements OnInit {
     console.log("Invoice Data :", invoice);
     console.log("Stock Data : ", stocks);
     console.log("Form Data:", this.form.value);
-    console.log("Invoice ID:", this.form.value.invoiceId);
-    console.log("Image Data : " , this.form.value.profileImage)
 
+    // Log FormData to check if image is appended correctly
+    console.log("FormData:", formData);
 
     this.service.addInvoiceAndStockData(formData).subscribe(response => {
       console.log(response);
       alert(" DATA SAVED SUCCESSFULLY !")
-      //window.location.reload();
+      window.location.reload();
     }, error => {
       console.error("Error Saving invoice and stock data :", error);
       alert("ERROR SAVING DATA !!")
     })
   } 
 }
+
 
 
 // Delete Stock Row

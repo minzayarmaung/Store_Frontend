@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice</title>
@@ -13,14 +13,14 @@
 
   
   <div class="container">
-    <form class="form" (saveData)="saveData()" [formGroup]="form">
+    <form class="form" (ngSubmit)="saveData()" [formGroup]="form">
     <div class="row">
       <!-- Image Upload Section -->
        <div class="col-md-3 d-flex align-items-center justify-content-center profile-pic-container me-5">
         <div class="image">
           <img [src]="imageSrc" (click)="fileInput.click()" class="profileImage" alt="Upload Profile Pic " 
           style="cursor:pointer; max-width: 100%; height: auto;" (load)="onImageLoad()" >
-          <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none">
+          <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none" id="fileInput">
           <br><br><br><br><br><br><br><br><br><br>
           <h4 class="text-center" *ngIf="!imageSelected">Upload Cashier Pic</h4>
         </div> 

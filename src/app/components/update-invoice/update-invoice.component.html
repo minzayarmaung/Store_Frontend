@@ -13,11 +13,20 @@
 
       <br>
 
+      <!-- Image display section -->
+      <div class="col-md-3 d-flex align-items-center justify-content-center profile-pic-container me-5">
+        <div class="image">
+          <!-- Add an img tag to display the selected image -->
+          <img [src]="imageSrc" class="profileImage" alt="Selected Profile Pic" style="max-width: 100%; height: auto;">
+        </div>
+      </div>
+      <!-- End of Image display section -->
+
         <form class="form" [formGroup]="form">
           <div class="row">
             <!-- Left text boxes for invoice details -->
             <div class="col-md-6">
-    
+
               <div class="mb-3">
                 <label for="textBox2" class="form-label">Cashier Name</label>
                 <input type="text" formControlName="cashierName" class="form-control" id="textBox2" placeholder="Enter Cashier Name.">

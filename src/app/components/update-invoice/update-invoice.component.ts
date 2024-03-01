@@ -12,6 +12,7 @@ import { saveAs } from 'file-saver';
 
 class ExtendInvoiceData extends InvoiceData{
   stocks : ExtendedStockData[] | undefined;
+  imagePath: string | undefined;
 }
 class ExtendedStockData{
   stockId?: number;
@@ -39,18 +40,20 @@ export class UpdateInvoiceComponent implements OnInit {
       stocks: new FormArray([])
     });
   }
-  
+
+  imageSrc: string | undefined;
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
     this.service.getInvoiceDataById(id).subscribe((data: any) => { 
       const invoiceData = data as ExtendInvoiceData; // Type assertion :3
+      this.imageSrc = invoiceData.imagePath;
       this.form.patchValue({
         cashierName: invoiceData.cashierName,
         branch: invoiceData.branch,
         date: invoiceData.date,
         time: invoiceData.time,
-        center: invoiceData.center
+        center: invoiceData.center,
       });
   
       if (invoiceData.stocks) { // Now accessing stocks from the asserted type
@@ -149,7 +152,7 @@ export class UpdateInvoiceComponent implements OnInit {
   }
 
   update(): void {
-    const id = this.route.snapshot.params['invoiceId'];
+    const id = this.route.snapshot.params['id'];
     const updateInvoiceData = this.form.value;
     const updatedStockData = this.stocks.value;
 
