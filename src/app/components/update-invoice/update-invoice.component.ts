@@ -47,7 +47,6 @@ export class UpdateInvoiceComponent implements OnInit {
     const id = this.route.snapshot.params['id'];
     this.service.getInvoiceDataById(id).subscribe((data: any) => { 
       const invoiceData = data as ExtendInvoiceData; // Type assertion :3
-      this.imageSrc = invoiceData.imagePath;
       this.form.patchValue({
         cashierName: invoiceData.cashierName,
         branch: invoiceData.branch,
@@ -72,6 +71,11 @@ export class UpdateInvoiceComponent implements OnInit {
         });
       }
     });
+
+    this.service.getImagePhoto(id).subscribe((ImageData: Blob) => {
+      const blobUrl = URL.createObjectURL(ImageData);
+      this.imageSrc = blobUrl;
+    })
   }
   
 

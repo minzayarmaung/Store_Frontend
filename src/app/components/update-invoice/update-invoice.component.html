@@ -6,28 +6,32 @@
     <h2 class="text-center">Update Data</h2>
 
     <div class="container">
-      
-      <div class="container-left">
+      <div class="container-center">
         <button class="btn btn-success" (click)="generatePDF()"> Generate PDF </button>
       </div>
+    </div>
+    <br>
 
-      <br>
-
-      <!-- Image display section -->
-      <div class="col-md-3 d-flex align-items-center justify-content-center profile-pic-container me-5">
-        <div class="image">
-          <!-- Add an img tag to display the selected image -->
-          <img [src]="imageSrc" class="profileImage" alt="Selected Profile Pic" style="max-width: 100%; height: auto;">
-        </div>
-      </div>
-      <!-- End of Image display section -->
-
+    <div class="container">
         <form class="form" [formGroup]="form">
           <div class="row">
-            <!-- Left text boxes for invoice details -->
-            <div class="col-md-6">
+            <!-- Image display section -->
+            <div class="col-md-3 d-flex align-items-center justify-content-center profile-pic-container me-5">
+              <div class="image">
+                <!-- Add an img tag to display the selected image -->
+                <img [src]="imageSrc" class="profileImage circular-image" alt="Selected Profile Pic">
+              </div>
+            </div>
+            <!-- End of Image display section -->
+          </div>
+          <br>
 
-              <div class="mb-3">
+            <!-- Left text boxes for invoice details -->
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-md-6">
+
+                <div class="mb-3">
                 <label for="textBox2" class="form-label">Cashier Name</label>
                 <input type="text" formControlName="cashierName" class="form-control" id="textBox2" placeholder="Enter Cashier Name.">
                 <div *ngIf="form.controls['cashierName'].invalid && form.controls['cashierName'].touched" class="text-danger">
@@ -62,8 +66,8 @@
             </div>
     
             <!-- Right text boxes for date and time -->
-            <div class="col-md-6">
               <!-- Date Text Box-->
+              <div class="col-md-6">
               <div class="mb-3">
                 <label for="textBox4" class="form-label">Date</label>
                 <input type="date" formControlName="date" class="form-control" id="textBox4">
@@ -80,6 +84,9 @@
                 </div>
               </div>
             </div>
+            </div>
+            </div>
+
     
       <!-- Dynamic Stock Data Section -->
         <div class="container">
@@ -138,6 +145,5 @@
               <button type="button" class="btn btn-primary me-2" (click)="update()">Update</button>
               <a href="/result" class="btn btn-danger">Cancel</a>
             </div>
-          </div>
         </form>
-    </div>
+  </div>

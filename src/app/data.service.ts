@@ -115,4 +115,9 @@
       return this.http.get(`${this.url}pdf/generatePDFStockList` , {responseType : 'blob'});
     }
 
+    // Gettng Image Photo
+    getImagePhoto(invoiceId: number): Observable<Blob>{
+      return this.http.get(`${this.url}images/${invoiceId}` , {responseType : 'blob'}) 
+    }
+
   } 
