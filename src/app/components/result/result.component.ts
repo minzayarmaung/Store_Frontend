@@ -58,31 +58,34 @@ export class ResultComponent implements OnInit {
   }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
   
 
+  // Showing Only Unique Data With Unique Invoice ID . Not Duplicate
   ngOnInit(): void {
     this.service.getInvoiceWithStockDetails().subscribe((data: any[][]) => {
-      this.users = data.filter(userArray => userArray[6] !== 'inactive').map(userArray => ({
-
-        id: userArray[0],
-        invoiceId: userArray[0],
-        cashierName: userArray[1], // Mapping invoiceId
-        stockName : userArray[8],
-        date: userArray[2],
-        time: userArray[3],
-        branch: userArray[4],
-        center: userArray[5],
-        status: userArray[6],
-        stockId: userArray[7],
-        amount: userArray[9]
-
-      }));
+      // Make a new Variable to check
+      const uniqueInvoices = data.reduce((acc, curr) => {
+        if (!acc.find(item => item.invoiceId === curr[0])) {
+          acc.push({
+            id: curr[0],
+            invoiceId: curr[0],
+            cashierName: curr[1],
+            stockName: curr[8],
+            date: curr[2],
+            time: curr[3],
+            branch: curr[4],
+            center: curr[5],
+            status: curr[6],
+            stockId: curr[7],
+            amount: curr[9]
+          });
+        }
+        return acc;
+      }, []);
+      this.users = uniqueInvoices.filter(user => user.status !== 'inactive');
       this.totalRows = this.users.length;
-    });
-    
-    
-    
-}
+    });  
+  }
   
-
+  
   // Excel Export Function Start
 
   /* Default Name for Excel file when Download */

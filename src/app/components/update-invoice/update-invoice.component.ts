@@ -4,11 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormControl, FormGroup, Validators , AbstractControl} from '@angular/forms';
 import { InvoiceData } from '../invoice-data/invoicedata.module';
 import { StockData } from '../stock-data/stockdata.module';
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { saveAs } from 'file-saver';
 
-(pdfMake as any).vsf = pdfFonts.pdfMake.vfs;
 
 class ExtendInvoiceData extends InvoiceData{
   stocks : ExtendedStockData[] | undefined;
@@ -75,6 +72,8 @@ export class UpdateInvoiceComponent implements OnInit {
     this.service.getImagePhoto(id).subscribe((ImageData: Blob) => {
       const blobUrl = URL.createObjectURL(ImageData);
       this.imageSrc = blobUrl;
+    } , error => {
+      console.log(`Image with ID ${id} Not Found or Exist`)
     })
   }
   
@@ -91,6 +90,8 @@ export class UpdateInvoiceComponent implements OnInit {
       const stockId = stock.get('stockId')?.value;
       this.service.softDeleteStock(stockId).subscribe(() => {
         console.log(`Stock with ID ${stockId} soft-deleted Successfully..`)
+        alert(`Stock with StockID ${stockId} deleted Successfully 😊`)
+        window.location.reload();
       } , error => {
         console.error(" Error Soft-Deleting Stock :" , error);
       });

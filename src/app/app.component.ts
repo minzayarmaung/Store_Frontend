@@ -3,9 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddStockComponent } from './components/add-stock/add-stock.component';
 import { coerceStringArray } from '@angular/cdk/coercion';
 import { Router } from '@angular/router';
-import * as pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
-
 
 
 @Component({

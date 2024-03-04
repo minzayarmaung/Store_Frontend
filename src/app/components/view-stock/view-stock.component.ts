@@ -49,7 +49,6 @@ export class ViewStockComponent {
     
     // Getting All Data from the Stock Database to the Stock Table
     getStockData(): void {
-
       this.service.getStockData().subscribe( 
          (data: any[]) => {
            this.stocks = data.filter(stock => stock.status == 'active' || stock.status == null || stock.status=="" || stock.status == "Available");  
