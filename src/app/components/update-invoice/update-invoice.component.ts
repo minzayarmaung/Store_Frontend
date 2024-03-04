@@ -171,6 +171,7 @@ export class UpdateInvoiceComponent implements OnInit {
       });
     } , error => {
         console.error("Error Updating Data : " , error);
+        window.location.reload();
     });
   }
 }
