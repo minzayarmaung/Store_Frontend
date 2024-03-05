@@ -119,5 +119,10 @@
     getImagePhoto(invoiceId: number): Observable<Blob>{
       return this.http.get(`${this.url}images/${invoiceId}` , {responseType : 'blob'}) 
     }
+    
+    // Updating Image Photo 
+    updateImagePhoto(invoiceId: number , formData: FormData): Observable<any>{
+      return this.http.put(`${this.url}updateImage/${invoiceId}`, formData, { responseType : 'blob'})
+    }
 
   } 

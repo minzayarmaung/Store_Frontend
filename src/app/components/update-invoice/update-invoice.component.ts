@@ -39,6 +39,33 @@ export class UpdateInvoiceComponent implements OnInit {
   }
 
   imageSrc: string | undefined;
+  showEdit: boolean = false;
+
+  onFileSelected(event: Event): void {
+    if(confirm("Are you sure you want to change this Photo?")){
+    const element = event.currentTarget as HTMLInputElement;
+    const file: File | null = element.files ? element.files[0] : null;
+
+    if (file) {
+      const formData = new FormData();
+      formData.append('profileImage', file); 
+      const invoiceId = this.route.snapshot.params['id'];
+
+      this.service.updateImagePhoto(invoiceId, formData).subscribe(
+        (response) => {
+          console.log("Image Updated Successfully ", response);
+          this.imageSrc = URL.createObjectURL(file);
+        },
+        (error) => {
+          console.error("Error Updating Image", error);
+        }
+      );
+    } else {
+      console.error("No file selected.");
+    }
+  }
+}
+
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
