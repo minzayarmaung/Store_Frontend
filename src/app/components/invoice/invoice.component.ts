@@ -65,6 +65,7 @@ export class InvoiceComponent implements OnInit {
 
     imageSrc = "https://cdn3d.iconscout.com/3d/premium/thumb/upload-image-9298307-7628612.png";
     imageSelected : boolean = false;
+    showEdit: boolean = false;
 
     onFileSelected(event :any): void{
       if(event.target.files && event.target.files[0]){
