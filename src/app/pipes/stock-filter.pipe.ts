@@ -15,7 +15,7 @@ export class StockFilterPipe implements PipeTransform {
     
     return stocks.filter(stock => {
       const matchesId = stock.stockId.toString().includes(lowerCaseFilterText);
-      const matchesName = stock.stockId.toString().includes(lowerCaseFilterText);
+      const matchesName = stock.name? stock.name.toLowerCase().includes(lowerCaseFilterText) : false;
       const matchesInvoiceId = stock.invoice?.invoiceId.toString().includes(lowerCaseFilterText);
 
       return matchesId || matchesName || matchesInvoiceId;
