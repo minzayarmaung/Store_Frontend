@@ -133,6 +133,7 @@
         <th class="text-center">Action</th>
       </tr>
     </thead>
+
     <tbody>
 
       <tr *ngFor="let stock of stocks; let i = index">
@@ -151,12 +152,14 @@
         <td class="text-end">{{ calculateAmount(stock) | number:'1.0-0' }} MMK</td>
 
         <td class="text-center"><button class="btn btn-danger" (click)="removeRow(i)"> Remove </button></td>
+        
       </tr>
 
           <!-- Display total amount -->
-           <tr>
-             <td colspan="3"></td>
-            <td colspan="2" class="text-end"><strong>Total: {{ calculateTotal() | number:'1.0-0' }} MMK</strong></td>
+           <tr >
+             <td colspan="4"></td>
+            <td class="text-end"><strong>Total: {{ calculateTotal() | number:'1.0-0' }} MMK</strong></td>
+            <td colspan="1"></td>
           </tr>
 
     </tbody>
